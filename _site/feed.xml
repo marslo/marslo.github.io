@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Marslo's World</title>
+    <description>&lt;h2&gt;Hello, there!&lt;/h2&gt;&lt;h1&gt;Welcome to Marslo's World!&lt;/h1&gt;</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 02 May 2017 14:04:57 +0800</pubDate>
+    <lastBuildDate>Tue, 02 May 2017 14:04:57 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.3</generator>
+    
+      <item>
+        <title>Hello World!</title>
+        <description>&lt;p&gt;Awesome Marslo! &lt;br /&gt;
+This is my first post.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 28 Apr 2017 19:23:24 +0800</pubDate>
+        <link>http://localhost:4000/marslo/2017/04/28/fist-post.html</link>
+        <guid isPermaLink="true">http://localhost:4000/marslo/2017/04/28/fist-post.html</guid>
+        
+        
+        <category>marslo</category>
+        
+      </item>
+    
+  </channel>
+</rss>
