@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  setup 1.15.3 HA kubernetes Cluster Playbook (basic environment)
+title:  1.15.3 HA kubernetes Cluster Playbook (basic environment)
 date:   2019-09-25 16:47:24 +0800
 categories: ["kubernetes"]
 ---
