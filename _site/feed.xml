@@ -5,25 +5,66 @@
     <description>&lt;h2&gt;Hello, there!&lt;/h2&gt;&lt;h1&gt;Welcome to my world!&lt;/h1&gt;</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 29 Sep 2019 17:16:39 +0800</pubDate>
-    <lastBuildDate>Sun, 29 Sep 2019 17:16:39 +0800</lastBuildDate>
+    <pubDate>Sun, 29 Sep 2019 18:15:30 +0800</pubDate>
+    <lastBuildDate>Sun, 29 Sep 2019 18:15:30 +0800</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
-        <title>setp by step setup HA kubernetes Cluster 1.15.3 (chapter one)</title>
-        <description>&lt;h1 id=&quot;concept&quot;&gt;Concept&lt;/h1&gt;
+        <title>setup 1.15.3 HA kubernetes Cluster Playbook (basic environment)</title>
+        <description>&lt;!-- START doctoc generated TOC please keep comment here to allow auto update --&gt;
+&lt;!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE --&gt;
+&lt;p&gt;&lt;strong&gt;Table of Contents&lt;/strong&gt;  &lt;em&gt;generated with &lt;a href=&quot;https://github.com/thlorenz/doctoc&quot;&gt;DocToc&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;concept
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#extended-etcd-topology&quot;&gt;Extended etcd Topology&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#kubernetes-ha-cluster-with-external-etcd&quot;&gt;Kubernetes HA cluster with external etcd&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#server-matrix&quot;&gt;Server Matrix&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#list&quot;&gt;List&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#etchosts&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/hosts&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- END doctoc generated TOC please keep comment here to allow auto update --&gt;
 
 &lt;h1 id=&quot;extended-etcd-topology&quot;&gt;Extended etcd Topology&lt;/h1&gt;
+&lt;h2 id=&quot;kubernetes-ha-cluster-with-external-etcd&quot;&gt;&lt;a href=&quot;https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology&quot;&gt;Kubernetes HA cluster with external etcd&lt;/a&gt;&lt;/h2&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;extended etcd topology
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/external-etcd-topology.png&quot; style=&quot;display: block; margin: auto; width: 666px;  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  border-radius: 8px;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;server-matrix&quot;&gt;Server Matrix&lt;/h2&gt;
+
+&lt;h3 id=&quot;list&quot;&gt;List&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;| Hostname   | IP Address      | etcd              |
+|------------|-----------------|-------------------|
+| master01   | 192.168.100.200 | master01 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;etcd-0&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; |
+| master02   | 192.168.100.201 | master02 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;etcd-1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; |
+| master03   | 192.168.100.202 | master03 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;etcd-2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; |
+| node01     | 192.168.100.203 |                   |
+| node02     | 192.168.100.204 |                   |
+|            |                 |                   |
+| virtual IP | 192.168.100.250 |                   |
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h1 id=&quot;matrix-and-services&quot;&gt;Matrix and Services&lt;/h1&gt;
+&lt;h3 id=&quot;etchosts&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/hosts&lt;/code&gt;&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;matrix
+&lt;p&gt;Add for all servers&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;192.168.100.200     master01
+192.168.100.201     master02
+192.168.100.202     master03
+192.168.100.203     worker01
+192.168.100.204     worker02
+
+192.168.100.250     jenkins.marslo.com
+192.168.100.250     prometheus.marslo.com
+192.168.100.250     grafana.marslo.com
+192.168.100.250     dashboard.marslo.com
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Wed, 25 Sep 2019 16:47:24 +0800</pubDate>
