@@ -5,9 +5,35 @@
     <description>&lt;h2&gt;Hello, there!&lt;/h2&gt;&lt;h1&gt;Welcome to Marslo's World!&lt;/h1&gt;</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 02 May 2017 14:04:57 +0800</pubDate>
-    <lastBuildDate>Tue, 02 May 2017 14:04:57 +0800</lastBuildDate>
-    <generator>Jekyll v3.4.3</generator>
+    <pubDate>Sun, 29 Sep 2019 15:52:46 +0800</pubDate>
+    <lastBuildDate>Sun, 29 Sep 2019 15:52:46 +0800</lastBuildDate>
+    <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>setp by step setup HA kubernetes Cluster (chapter one)</title>
+        <description>&lt;h1 id=&quot;concept&quot;&gt;Concept&lt;/h1&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;concept
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;extended-etcd-topology&quot;&gt;Extended etcd Topology&lt;/h1&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;extended etcd topology
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;matrix-and-services&quot;&gt;Matrix and Services&lt;/h1&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;matrix
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Wed, 25 Sep 2019 16:47:24 +0800</pubDate>
+        <link>http://localhost:4000/marslo/2019/09/25/ha-cluster-step1.html</link>
+        <guid isPermaLink="true">http://localhost:4000/marslo/2019/09/25/ha-cluster-step1.html</guid>
+        
+        
+        <category>marslo</category>
+        
+      </item>
     
       <item>
         <title>Hello World!</title>
