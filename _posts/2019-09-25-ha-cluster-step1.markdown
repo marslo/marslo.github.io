@@ -12,8 +12,16 @@ categories: ["kubernetes"]
 - [Extended etcd Topology](#extended-etcd-topology)
   - [Kubernetes HA cluster with external etcd](#kubernetes-ha-cluster-with-external-etcd)
   - [Server Matrix](#server-matrix)
-    - [List](#list)
+    - [Environment List](#environment-list)
     - [`/etc/hosts`](#etchosts)
+    - [variables](#variables)
+- [Tools Installation](#tools-installation)
+  - [cfssl & cfssljson](#cfssl--cfssljson)
+  - [etcd](#etcd)
+  - [keepalived](#keepalived)
+  - [haproxy](#haproxy)
+  - [helm](#helm)
+  - [docker](#docker)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
