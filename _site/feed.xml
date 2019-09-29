@@ -5,8 +5,8 @@
     <description>&lt;h2&gt;Hello, there!&lt;/h2&gt;&lt;h1&gt;Welcome to my world!&lt;/h1&gt;</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 29 Sep 2019 18:21:22 +0800</pubDate>
-    <lastBuildDate>Sun, 29 Sep 2019 18:21:22 +0800</lastBuildDate>
+    <pubDate>Sun, 29 Sep 2019 18:43:50 +0800</pubDate>
+    <lastBuildDate>Sun, 29 Sep 2019 18:43:50 +0800</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -38,7 +38,7 @@
 
 &lt;h2 id=&quot;server-matrix&quot;&gt;Server Matrix&lt;/h2&gt;
 
-&lt;h3 id=&quot;list&quot;&gt;List&lt;/h3&gt;
+&lt;h3 id=&quot;environment-list&quot;&gt;Environment List&lt;/h3&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;| Hostname   | IP Address      | etcd              |
 |------------|-----------------|-------------------|
@@ -66,6 +66,43 @@
 192.168.100.250     grafana.marslo.com
 192.168.100.250     dashboard.marslo.com
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;variables&quot;&gt;variables&lt;/h3&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;master01Name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;master01&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;master02Name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;master02&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;master03Name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;master03&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;master01IP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;192.168.100.200&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;master01IP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;192.168.100.201&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;master01IP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;192.168.100.202&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;virtualIP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;192.168.100.250&quot;&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;leadIP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master01IP&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;leadName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master01Name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;k8sVer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;v1.15.3&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;etcdVer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'v3.3.15'&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;keepaliveVer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'2.0.18'&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;haproxyVer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2.0.6&quot;&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;etcdPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/etc/etcd/ssl
+
+interface=$(netstat -nr | grep -E '&lt;/span&gt;UG|UGSc&lt;span class=&quot;s1&quot;&gt;' | grep -E '&lt;/span&gt;^0.0.0|default&lt;span class=&quot;s1&quot;&gt;' | grep -E '&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;0-9.]&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;7,15&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;' | awk -F'&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;print &lt;span class=&quot;nv&quot;&gt;$NF&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;')
+ipAddr=$(ip a s &quot;${interface}&quot; | sed -rn '&lt;/span&gt;s|.&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;inet &lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;0-9&lt;span class=&quot;se&quot;&gt;\.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]{&lt;/span&gt;7,15&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;/[0-9]&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;2&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; brd.&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$|&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\1&lt;/span&gt;|p&lt;span class=&quot;s1&quot;&gt;')
+peerName=$(hostname)
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;tools-installation&quot;&gt;Tools Installation&lt;/h1&gt;
+&lt;h2 id=&quot;cfssl--cfssljson&quot;&gt;cfssl &amp;amp; cfssljson&lt;/h2&gt;
+
+&lt;h2 id=&quot;etcd&quot;&gt;etcd&lt;/h2&gt;
+
+&lt;h2 id=&quot;keepalived&quot;&gt;keepalived&lt;/h2&gt;
+
+&lt;h2 id=&quot;haproxy&quot;&gt;haproxy&lt;/h2&gt;
+
+&lt;h2 id=&quot;helm&quot;&gt;helm&lt;/h2&gt;
+
+&lt;h2 id=&quot;docker&quot;&gt;docker&lt;/h2&gt;
 </description>
         <pubDate>Wed, 25 Sep 2019 16:47:24 +0800</pubDate>
         <link>http://localhost:4000/kubernetes/2019/09/25/ha-cluster-step1.html</link>

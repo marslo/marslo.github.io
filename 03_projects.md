@@ -6,5 +6,5 @@ order: 3
 ---
 
 <div class="post-content-download">
-still developing
+still in developing
 </div>

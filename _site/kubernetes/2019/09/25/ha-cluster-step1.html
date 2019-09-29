@@ -163,7 +163,7 @@
 
 <h2 id="server-matrix">Server Matrix</h2>
 
-<h3 id="list">List</h3>
+<h3 id="environment-list">Environment List</h3>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| Hostname   | IP Address      | etcd              |
 |------------|-----------------|-------------------|
@@ -191,6 +191,43 @@
 192.168.100.250     grafana.marslo.com
 192.168.100.250     dashboard.marslo.com
 </code></pre></div></div>
+
+<h3 id="variables">variables</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">master01Name</span><span class="o">=</span><span class="s2">"master01"</span>
+<span class="nv">master02Name</span><span class="o">=</span><span class="s2">"master02"</span>
+<span class="nv">master03Name</span><span class="o">=</span><span class="s2">"master03"</span>
+<span class="nv">master01IP</span><span class="o">=</span><span class="s2">"192.168.100.200"</span>
+<span class="nv">master01IP</span><span class="o">=</span><span class="s2">"192.168.100.201"</span>
+<span class="nv">master01IP</span><span class="o">=</span><span class="s2">"192.168.100.202"</span>
+<span class="nv">virtualIP</span><span class="o">=</span><span class="s2">"192.168.100.250"</span>
+
+<span class="nv">leadIP</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">master01IP</span><span class="k">}</span><span class="s2">"</span>
+<span class="nv">leadName</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">master01Name</span><span class="k">}</span><span class="s2">"</span>
+
+<span class="nv">k8sVer</span><span class="o">=</span><span class="s2">"v1.15.3"</span>
+<span class="nv">etcdVer</span><span class="o">=</span><span class="s1">'v3.3.15'</span>
+<span class="nv">keepaliveVer</span><span class="o">=</span><span class="s1">'2.0.18'</span>
+<span class="nv">haproxyVer</span><span class="o">=</span><span class="s2">"2.0.6"</span>
+
+<span class="nv">etcdPath</span><span class="o">=</span><span class="s1">'/etc/etcd/ssl
+
+interface=$(netstat -nr | grep -E '</span>UG|UGSc<span class="s1">' | grep -E '</span>^0.0.0|default<span class="s1">' | grep -E '</span><span class="o">[</span>0-9.]<span class="o">{</span>7,15<span class="o">}</span><span class="s1">' | awk -F'</span> <span class="s1">' '</span><span class="o">{</span>print <span class="nv">$NF</span><span class="o">}</span><span class="s1">')
+ipAddr=$(ip a s "${interface}" | sed -rn '</span>s|.<span class="k">*</span>inet <span class="o">([</span>0-9<span class="se">\.</span><span class="o">]{</span>7,15<span class="o">})</span>/[0-9]<span class="o">{</span>2<span class="o">}</span> brd.<span class="k">*</span><span class="nv">$|</span><span class="se">\1</span>|p<span class="s1">')
+peerName=$(hostname)
+</span></code></pre></div></div>
+
+<h1 id="tools-installation">Tools Installation</h1>
+<h2 id="cfssl--cfssljson">cfssl &amp; cfssljson</h2>
+
+<h2 id="etcd">etcd</h2>
+
+<h2 id="keepalived">keepalived</h2>
+
+<h2 id="haproxy">haproxy</h2>
+
+<h2 id="helm">helm</h2>
+
+<h2 id="docker">docker</h2>
 
   </div>
 </article>

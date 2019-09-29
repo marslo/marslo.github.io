@@ -24,7 +24,7 @@ categories: ["kubernetes"]
 
 ## Server Matrix
 
-### List
+### Environment List
 
 ```bash
 | Hostname   | IP Address      | etcd              |
@@ -54,3 +54,41 @@ Add for all servers
 192.168.100.250     grafana.marslo.com
 192.168.100.250     dashboard.marslo.com
 ```
+
+### variables
+```bash
+master01Name="master01"
+master02Name="master02"
+master03Name="master03"
+master01IP="192.168.100.200"
+master01IP="192.168.100.201"
+master01IP="192.168.100.202"
+virtualIP="192.168.100.250"
+
+leadIP="${master01IP}"
+leadName="${master01Name}"
+
+k8sVer="v1.15.3"
+etcdVer='v3.3.15'
+keepaliveVer='2.0.18'
+haproxyVer="2.0.6"
+
+etcdPath='/etc/etcd/ssl
+
+interface=$(netstat -nr | grep -E 'UG|UGSc' | grep -E '^0.0.0|default' | grep -E '[0-9.]{7,15}' | awk -F' ' '{print $NF}')
+ipAddr=$(ip a s "${interface}" | sed -rn 's|.*inet ([0-9\.]{7,15})/[0-9]{2} brd.*$|\1|p')
+peerName=$(hostname)
+```
+
+# Tools Installation
+## cfssl & cfssljson
+
+## etcd
+
+## keepalived
+
+## haproxy
+
+## helm
+
+## docker
