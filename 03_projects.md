@@ -1,8 +1,8 @@
 ---
 layout: page
-title: My Projects
+title: projects
 permalink: /projects/
-order: 2
+order: 3
 ---
 
 <div class="post-content-download">

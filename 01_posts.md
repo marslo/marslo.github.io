@@ -1,6 +1,6 @@
 ---
 layout: page
-title: My Posts
+title: posts
 permalink: /posts/
 order: 1
 ---
