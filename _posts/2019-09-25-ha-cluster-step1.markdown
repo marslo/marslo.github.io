@@ -20,7 +20,7 @@ categories: ["kubernetes"]
 # Extended etcd Topology
 ## [Kubernetes HA cluster with external etcd](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology)
 
-<img src="{{site.url}}/images/external-etcd-topology.png" style="display: block; margin: auto; width: 666px;  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  border-radius: 8px;" />
+<img src="{{site.url}}/images/external-etcd-topology.png" style="width: 666px;" />
 
 ## Server Matrix
 
