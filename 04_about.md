@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About Marslo
+title: about me
 permalink: /aboutme/
 ---
 
@@ -17,7 +17,8 @@ permalink: /aboutme/
     <br />
     <br />
     <a href="http://linkedin.com/in/marslo-jiao-3a286399"><i class="fa fa-linkedin"></i></a> My Linkedin <br>
-    <a href="http://weibo.com/woainvzu"><i class="fa fa-weibo"></i></a> My Weibo
+    <a href="http://weibo.com/woainvzu"><i class="fa fa-weibo"></i></a> My Weibo <br>
+    <a href="https://imarslo.gitbook.io/mynotes/"><i class="fa fa-book"></i></a> My Gitbook
   </p>
 
 </div>
