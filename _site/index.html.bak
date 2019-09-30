@@ -142,6 +142,13 @@
       <time datetime="2019-09-30">
       2019-09-30
       </time>
+      &raquo; <a href="/kubernetes/centos/2019/09/30/ha-cluster-step2.html">1.15.3 ha kubernetes cluster playbook (etcd cluster)</a><br />
+      
+      
+      
+      <time datetime="2019-09-30">
+      2019-09-30
+      </time>
       &raquo; <a href="/drafts/2019/09/30/test.html">Test</a><br />
       
       
@@ -156,7 +163,7 @@
       <time datetime="2019-09-25">
       2019-09-25
       </time>
-      &raquo; <a href="/kubernetes/2019/09/25/ha-cluster-step1.html">1.15.3 ha kubernetes cluster playbook (basic environment)</a><br />
+      &raquo; <a href="/kubernetes/centos/2019/09/25/ha-cluster-step1.html">1.15.3 ha kubernetes cluster playbook (basic environment)</a><br />
       
       
       

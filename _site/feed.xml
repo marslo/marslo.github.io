@@ -5,9 +5,28 @@
     <description>&lt;h2&gt;Hello, there!&lt;/h2&gt;&lt;h1&gt;Welcome to my world!&lt;/h1&gt;</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 30 Sep 2019 21:37:19 +0800</pubDate>
-    <lastBuildDate>Mon, 30 Sep 2019 21:37:19 +0800</lastBuildDate>
+    <pubDate>Mon, 30 Sep 2019 21:39:34 +0800</pubDate>
+    <lastBuildDate>Mon, 30 Sep 2019 21:39:34 +0800</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>1.15.3 HA kubernetes Cluster Playbook (etcd cluster)</title>
+        <description>&lt;!--more--&gt;
+</description>
+        <pubDate>Mon, 30 Sep 2019 21:38:45 +0800</pubDate>
+        <link>http://localhost:4000/kubernetes/centos/2019/09/30/ha-cluster-step2.html</link>
+        <guid isPermaLink="true">http://localhost:4000/kubernetes/centos/2019/09/30/ha-cluster-step2.html</guid>
+        
+        <category>kuberentes</category>
+        
+        <category>centos</category>
+        
+        
+        <category>kubernetes</category>
+        
+        <category>centos</category>
+        
+      </item>
     
       <item>
         <title>test</title>
@@ -778,13 +797,17 @@ You can add more such classes by putting them inside **theme.scss**. Here is how
 &lt;/ul&gt;
 </description>
         <pubDate>Wed, 25 Sep 2019 16:47:24 +0800</pubDate>
-        <link>http://localhost:4000/kubernetes/2019/09/25/ha-cluster-step1.html</link>
-        <guid isPermaLink="true">http://localhost:4000/kubernetes/2019/09/25/ha-cluster-step1.html</guid>
+        <link>http://localhost:4000/kubernetes/centos/2019/09/25/ha-cluster-step1.html</link>
+        <guid isPermaLink="true">http://localhost:4000/kubernetes/centos/2019/09/25/ha-cluster-step1.html</guid>
         
         <category>kuberentes</category>
         
+        <category>centos</category>
+        
         
         <category>kubernetes</category>
+        
+        <category>centos</category>
         
       </item>
     
