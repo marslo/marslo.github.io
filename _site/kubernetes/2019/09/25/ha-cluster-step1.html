@@ -644,7 +644,7 @@
 
 <h3 id="docker">docker</h3>
 <ul>
-  <li>Installaiton
+  <li>Presetup
     <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c"># clean environment</span>
   <span class="nv">$ </span><span class="nb">sudo </span>yum remove <span class="nt">-y</span> docker <span class="se">\</span>
                      docker-client <span class="se">\</span>
@@ -670,8 +670,15 @@
   <span class="nv">$ </span><span class="nb">sudo </span>yum-config-manager <span class="nt">--disable</span> docker-ce-edge
   <span class="nv">$ </span><span class="nb">sudo </span>yum-config-manager <span class="nt">--disable</span> docker-ce-test
   <span class="nv">$ </span><span class="nb">sudo </span>yum makecache
-
-  <span class="nv">$ dockerVer</span><span class="o">=</span><span class="si">$(</span><span class="nb">sudo </span>yum list docker-ce <span class="nt">--showduplicates</span> | <span class="nb">sort</span> <span class="nt">-r</span> | <span class="nb">grep </span>18<span class="se">\.</span>09 | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">' '</span> <span class="s1">'{print $2}'</span> | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">':'</span> <span class="s1">'{print $NF}'</span><span class="si">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Installaiton
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ dockerVer</span><span class="o">=</span><span class="si">$(</span><span class="nb">sudo </span>yum list docker-ce <span class="nt">--showduplicates</span> <span class="se">\</span>
+                  | <span class="nb">sort</span> <span class="nt">-r</span> <span class="se">\</span>
+                  | <span class="nb">grep </span>18<span class="se">\.</span>09 <span class="se">\</span>
+                  | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">' '</span> <span class="s1">'{print $2}'</span> <span class="se">\</span>
+                  | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">':'</span> <span class="s1">'{print $NF}'</span> <span class="se">\</span>
+              <span class="si">)</span>
   <span class="nv">$ </span><span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> <span class="se">\</span>
            docker-ce-<span class="k">${</span><span class="nv">dockerVer</span><span class="k">}</span>.x86_64 <span class="se">\</span>
            docker-ce-cli-<span class="k">${</span><span class="nv">dockerVer</span><span class="k">}</span>.x86_64 <span class="se">\</span>
@@ -685,7 +692,6 @@
 </code></pre></div>    </div>
   </li>
 </ul>
-
 
   </div>
 </article>

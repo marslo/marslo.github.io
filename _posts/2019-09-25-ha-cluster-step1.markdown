@@ -448,7 +448,7 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
     ```
 
 ### docker
-- Installaiton
+- Presetup
     ```bash
     # clean environment
     $ sudo yum remove -y docker \
@@ -475,8 +475,16 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
     $ sudo yum-config-manager --disable docker-ce-edge
     $ sudo yum-config-manager --disable docker-ce-test
     $ sudo yum makecache
+    ```
 
-    $ dockerVer=$(sudo yum list docker-ce --showduplicates | sort -r | grep 18\.09 | awk -F' ' '{print $2}' | awk -F':' '{print $NF}')
+- Installaiton
+    ```bash
+    $ dockerVer=$(sudo yum list docker-ce --showduplicates \
+                    | sort -r \
+                    | grep 18\.09 \
+                    | awk -F' ' '{print $2}' \
+                    | awk -F':' '{print $NF}' \
+                )
     $ sudo yum install -y \
              docker-ce-${dockerVer}.x86_64 \
              docker-ce-cli-${dockerVer}.x86_64 \
@@ -488,4 +496,3 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
     $ sudo systemctl status docker
     $ sudo chown -a -G docker $(whomai)
     ```
-

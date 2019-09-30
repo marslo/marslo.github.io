@@ -5,8 +5,8 @@
     <description>&lt;h2&gt;Hello, there!&lt;/h2&gt;&lt;h1&gt;Welcome to my world!&lt;/h1&gt;</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 30 Sep 2019 21:34:18 +0800</pubDate>
-    <lastBuildDate>Mon, 30 Sep 2019 21:34:18 +0800</lastBuildDate>
+    <pubDate>Mon, 30 Sep 2019 21:36:58 +0800</pubDate>
+    <lastBuildDate>Mon, 30 Sep 2019 21:36:58 +0800</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -728,7 +728,7 @@ You can add more such classes by putting them inside **theme.scss**. Here is how
 
 &lt;h3 id=&quot;docker&quot;&gt;docker&lt;/h3&gt;
 &lt;ul&gt;
-  &lt;li&gt;Installaiton
+  &lt;li&gt;Presetup
     &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;c&quot;&gt;# clean environment&lt;/span&gt;
   &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum remove &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; docker &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
                      docker-client &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
@@ -754,8 +754,15 @@ You can add more such classes by putting them inside **theme.scss**. Here is how
   &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum-config-manager &lt;span class=&quot;nt&quot;&gt;--disable&lt;/span&gt; docker-ce-edge
   &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum-config-manager &lt;span class=&quot;nt&quot;&gt;--disable&lt;/span&gt; docker-ce-test
   &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum makecache
-
-  &lt;span class=&quot;nv&quot;&gt;$ dockerVer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum list docker-ce &lt;span class=&quot;nt&quot;&gt;--showduplicates&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep &lt;/span&gt;18&lt;span class=&quot;se&quot;&gt;\.&lt;/span&gt;09 | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $2}'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;':'&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $NF}'&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Installaiton
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ dockerVer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum list docker-ce &lt;span class=&quot;nt&quot;&gt;--showduplicates&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+                  | &lt;span class=&quot;nb&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+                  | &lt;span class=&quot;nb&quot;&gt;grep &lt;/span&gt;18&lt;span class=&quot;se&quot;&gt;\.&lt;/span&gt;09 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+                  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $2}'&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+                  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;':'&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $NF}'&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+              &lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
            docker-ce-&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;dockerVer&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;.x86_64 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
            docker-ce-cli-&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;dockerVer&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;.x86_64 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
@@ -769,7 +776,6 @@ You can add more such classes by putting them inside **theme.scss**. Here is how
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
-
 </description>
         <pubDate>Wed, 25 Sep 2019 16:47:24 +0800</pubDate>
         <link>http://localhost:4000/kubernetes/2019/09/25/ha-cluster-step1.html</link>
