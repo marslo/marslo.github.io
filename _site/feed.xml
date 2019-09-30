@@ -5,13 +5,35 @@
     <description>&lt;h2&gt;Hello, there!&lt;/h2&gt;&lt;h1&gt;Welcome to my world!&lt;/h1&gt;</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 30 Sep 2019 20:02:53 +0800</pubDate>
-    <lastBuildDate>Mon, 30 Sep 2019 20:02:53 +0800</lastBuildDate>
+    <pubDate>Mon, 30 Sep 2019 20:16:02 +0800</pubDate>
+    <lastBuildDate>Mon, 30 Sep 2019 20:16:02 +0800</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
         <title>test</title>
-        <description>&lt;div class=&quot;alert alert-success&quot; role=&quot;alert&quot;&gt;
+        <description>&lt;div class=&quot;note&quot;&gt;
+  &lt;h5&gt;Gather your collections&lt;span class=&quot;version-badge&quot; title=&quot;This feature is available starting version 3.7.0&quot;&gt;3.7.0&lt;/span&gt;
+&lt;/h5&gt;
+
+  &lt;p&gt;You can optionally specify a directory to store all your collections in the same place with &lt;code&gt;collections_dir: my_collections&lt;/code&gt;.&lt;/p&gt;
+
+  &lt;p&gt;Then Jekyll will look in &lt;code&gt;my_collections/_books&lt;/code&gt; for the &lt;code&gt;books&lt;/code&gt; collection, and
+  in &lt;code&gt;my_collections/_recipes&lt;/code&gt; for the &lt;code&gt;recipes&lt;/code&gt; collection.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;note warning&quot;&gt;
+  &lt;h5&gt;Be sure to move drafts and posts into custom collections directory&lt;/h5&gt;
+
+  &lt;p&gt;If you specify a directory to store all your collections in the same place with &lt;code&gt;collections_dir: my_collections&lt;/code&gt;, then you will need to move your &lt;code&gt;_drafts&lt;/code&gt; and &lt;code&gt;_posts&lt;/code&gt; directory to &lt;code&gt;my_collections/_drafts&lt;/code&gt; and &lt;code&gt;my_collections/_posts&lt;/code&gt;. Note that, the name of your collections directory cannot start with an underscore (`_`).&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;alert alert-success&quot; role=&quot;alert&quot;&gt;
 &lt;i class=&quot;fa fa-check-square-o&quot;&gt;&lt;/i&gt;
 &lt;b&gt;Tip: &lt;/b&gt;
 &lt;/div&gt;
@@ -188,37 +210,7 @@ You can add more such classes by putting them inside **theme.scss**. Here is how
     
       <item>
         <title>1.15.3 HA kubernetes Cluster Playbook (basic environment)</title>
-        <description>&lt;!-- START doctoc generated TOC please keep comment here to allow auto update --&gt;
-&lt;!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE --&gt;
-&lt;p&gt;&lt;strong&gt;Table of Contents&lt;/strong&gt;  &lt;em&gt;generated with &lt;a href=&quot;https://github.com/thlorenz/doctoc&quot;&gt;DocToc&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#extended-etcd-topology&quot;&gt;Extended etcd Topology&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#kubernetes-ha-cluster-with-external-etcd&quot;&gt;Kubernetes HA cluster with external etcd&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#server-matrix&quot;&gt;Server Matrix&lt;/a&gt;
-        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#environment-list&quot;&gt;Environment List&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#etchosts&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/hosts&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#variables&quot;&gt;variables&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#ipaddress&quot;&gt;ipaddress&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#etcd&quot;&gt;etcd&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#keepalived&quot;&gt;keepalived&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#haproxy-206&quot;&gt;Haproxy 2.0.6&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#helm&quot;&gt;helm&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#docker&quot;&gt;docker&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;!-- END doctoc generated TOC please keep comment here to allow auto update --&gt;
-
-&lt;h1 id=&quot;extended-etcd-topology&quot;&gt;Extended etcd Topology&lt;/h1&gt;
+        <description>&lt;h1 id=&quot;extended-etcd-topology&quot;&gt;Extended etcd Topology&lt;/h1&gt;
 &lt;h2 id=&quot;kubernetes-ha-cluster-with-external-etcd&quot;&gt;&lt;a href=&quot;https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology&quot;&gt;Kubernetes HA cluster with external etcd&lt;/a&gt;&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/external-etcd-topology.png&quot; style=&quot;width: 666px;&quot; /&gt;&lt;/p&gt;

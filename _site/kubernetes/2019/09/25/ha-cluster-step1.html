@@ -34,7 +34,7 @@
   
 
   <title>1.15.3 HA kubernetes Cluster Playbook (basic environment)</title>
-  <meta name="description" content="Table of Contents  generated with DocToc">
+  <meta name="description" content="Extended etcd TopologyKubernetes HA cluster with external etcd">
 <script src="https://ajax.loli.net/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/assets/css/main.css">
@@ -139,37 +139,7 @@
 </div>
 
   <div class="post-content container" itemprop="articleBody">
-    <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<p><strong>Table of Contents</strong>  <em>generated with <a href="https://github.com/thlorenz/doctoc">DocToc</a></em></p>
-
-<ul>
-  <li><a href="#extended-etcd-topology">Extended etcd Topology</a>
-    <ul>
-      <li><a href="#kubernetes-ha-cluster-with-external-etcd">Kubernetes HA cluster with external etcd</a></li>
-      <li><a href="#server-matrix">Server Matrix</a>
-        <ul>
-          <li><a href="#environment-list">Environment List</a></li>
-          <li><a href="#etchosts"><code class="highlighter-rouge">/etc/hosts</code></a></li>
-          <li><a href="#variables">variables</a></li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li><a href="#ipaddress">ipaddress</a>
-    <ul>
-      <li><a href="#etcd">etcd</a></li>
-      <li><a href="#keepalived">keepalived</a></li>
-      <li><a href="#haproxy-206">Haproxy 2.0.6</a></li>
-      <li><a href="#helm">helm</a></li>
-      <li><a href="#docker">docker</a></li>
-    </ul>
-  </li>
-</ul>
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-<h1 id="extended-etcd-topology">Extended etcd Topology</h1>
+    <h1 id="extended-etcd-topology">Extended etcd Topology</h1>
 <h2 id="kubernetes-ha-cluster-with-external-etcd"><a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology">Kubernetes HA cluster with external etcd</a></h2>
 
 <p><img src="http://localhost:4000/assets/images/external-etcd-topology.png" style="width: 666px;" /></p>

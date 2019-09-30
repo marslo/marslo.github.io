@@ -5,25 +5,6 @@ date:   2019-09-25 16:47:24 +0800
 categories: ["kubernetes"]
 ---
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [Extended etcd Topology](#extended-etcd-topology)
-  - [Kubernetes HA cluster with external etcd](#kubernetes-ha-cluster-with-external-etcd)
-  - [Server Matrix](#server-matrix)
-    - [Environment List](#environment-list)
-    - [`/etc/hosts`](#etchosts)
-    - [variables](#variables)
-- [ipaddress](#ipaddress)
-  - [etcd](#etcd)
-  - [keepalived](#keepalived)
-  - [Haproxy 2.0.6](#haproxy-206)
-  - [helm](#helm)
-  - [docker](#docker)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # Extended etcd Topology
 ## [Kubernetes HA cluster with external etcd](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology)
 

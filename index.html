@@ -13,11 +13,7 @@ layout: default
 <section id="page-content">
   <div class="container">
 
-
-
-
-
-{% for post in site.posts limit:10 %}
+  {% for post in site.posts limit:10 %}
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
@@ -40,12 +36,12 @@ layout: default
     </header>
 
     <article class="post-content" itemprop="articleBody">
-      {{ post.excerpt | strip_html }}
+      <!--
+        {{ post.excerpt | strip_html }}
+      -->
+      {{ post.content | strip_html | truncatewords: 88 }}
     </article> <hr />
   {% endfor %}
-
-
-
 
 
   </div>
