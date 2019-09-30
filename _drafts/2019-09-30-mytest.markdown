@@ -1,8 +1,0 @@
-
-<div class=warn>
-**Warning:** remember to do bookeping
-<div/>
-
-<div class="alert alert-warning">
-<b>INFO:</b> etcd need to be setup in all masters!
-</div>

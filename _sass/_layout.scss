@@ -12,7 +12,31 @@
     color: $grey-color-dark;
   }
   li{
-    list-style: none; 
+    list-style: none;
   }
 
 }
+
+
+/**
+ * Posts
+ */
+.post-header {
+  margin-bottom: $spacing-unit;
+  time{
+      margin-left: 0px;
+      font-style: normal;
+
+  }
+}
+
+.post-title {
+  font-size: 38px;//42px;
+  letter-spacing: -1px;
+  line-height: 1;
+
+  @include media-query($on-laptop) {
+    font-size: 36px;
+  }
+}
+

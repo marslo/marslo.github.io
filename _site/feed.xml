@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>I, Marslo</title>
+    <description>&lt;h2&gt;Hello, there!&lt;/h2&gt;&lt;h1&gt;Welcome to my world!&lt;/h1&gt;</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 30 Sep 2019 20:02:53 +0800</pubDate>
+    <lastBuildDate>Mon, 30 Sep 2019 20:02:53 +0800</lastBuildDate>
+    <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>test</title>
+        <description>&lt;div class=&quot;alert alert-success&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;fa fa-check-square-o&quot;&gt;&lt;/i&gt;
+&lt;b&gt;Tip: &lt;/b&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;alert alert-warning&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;fa fa-warning&quot;&gt;&lt;/i&gt;
+&lt;b&gt;Important: &lt;/b&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;alert alert-info&quot; role=&quot;alert&quot;&gt;
+  &lt;p&gt;&lt;i class=&quot;fa fa-info-circle&quot;&gt;&lt;/i&gt;
+&lt;b&gt;Note:&lt;/b&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;https://github.com/strongloop/loopback-next/blob/master/docs/site/sidebars/lb4_sidebar.yml&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;lb4_sidebar.yml&lt;/code&gt;&lt;/a&gt; is sourced from &lt;a href=&quot;http://github.com/strongloop/loopback-next/&quot;&gt;loopback-next&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;div class=&quot;warn&quot;&gt;
+**Warning:** remember to do bookeping
+&lt;div /&gt;
+
+&lt;div class=&quot;alert alert-warning&quot;&gt;
+&lt;b&gt;INFO:&lt;/b&gt; etcd need to be setup in all masters!
+&lt;/div&gt;
+
+
+
+h1. Below are the examples of the default table styling.
+
+## Simple table
+
+| First Header                | Second Header                |
+| ------------                | -------------                |
+| Content from cell 1         | Content from cell 2          |
+| Content in the first column | Content in the second column |
+
+&amp;gt;Markdown
+{:.filename}
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-raw&quot; data-lang=&quot;raw&quot;&gt;| First Header                | Second Header                |
+| ------------                | -------------                |
+| Content from cell 1         | Content from cell 2          |
+| Content in the first column | Content in the second column |&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+## Custom styles
+
+It is also possible to change a bit table styles by applying CSS classes. By default there are two classes available:
+
+ - `.wide` - makes table width 100%
+
+| First Header                | Second Header                |
+| ------------                | -------------                |
+| Content from cell 1         | Content from cell 2          |
+| Content in the first column | Content in the second column |
+{:.wide}
+
+&amp;gt;Markdown - note the last line
+{:.filename}
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-markdown&quot; data-lang=&quot;markdown&quot;&gt;| First Header                | Second Header                |
+| ------------                | -------------                |
+| Content from cell 1         | Content from cell 2          |
+| Content in the first column | Content in the second column |
+{:.wide}&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+ - `.inner-borders` - shows inner borders
+
+| First Header                | Second Header                |
+| ------------                | -------------                |
+| Content from cell 1         | Content from cell 2          |
+| Content in the first column | Content in the second column |
+{:.inner-borders}
+
+&amp;gt;Markdown - note the last line
+{:.filename}
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-raw&quot; data-lang=&quot;raw&quot;&gt;| First Header                | Second Header                |
+| ------------                | -------------                |
+| Content from cell 1         | Content from cell 2          |
+| Content in the first column | Content in the second column |
+{:.inner-borders}&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+You can add more such classes by putting them inside **theme.scss**. Here is how the above mentioned classes are defined:
+
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-scss&quot; data-lang=&quot;scss&quot;&gt;&lt;span class=&quot;nt&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.wide&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;max-width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.inner-borders&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;border-collapse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;collapse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;border-style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;td&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;border&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1px&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;solid&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;#5e5e5e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+## Few more examples from kramdown [documentation](https://kramdown.gettalong.org/syntax.html#tables):
+
+|-----------------+------------+-----------------+----------------|
+| Default aligned |Left aligned| Center aligned  | Right aligned  |
+|-----------------|:-----------|:---------------:|---------------:|
+| First body part |Second cell | Third cell      | fourth cell    |
+| Second line     |foo         | **strong**      | baz            |
+| Third line      |quux        | baz             | bar            |
+|-----------------+------------+-----------------+----------------|
+| Second body     |            |                 |                |
+| 2 line          |            |                 |                |
+|=================+============+=================+================|
+| Footer row      |            |                 |                |
+|-----------------+------------+-----------------+----------------|
+
+&amp;gt;Table header row, two table bodies and a table footer row
+{:.filename}
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-raw&quot; data-lang=&quot;raw&quot;&gt;|-----------------+------------+-----------------+----------------|
+| Default aligned |Left aligned| Center aligned  | Right aligned  |
+|-----------------|:-----------|:---------------:|---------------:|
+| First body part |Second cell | Third cell      | fourth cell    |
+| Second line     |foo         | **strong**      | baz            |
+| Third line      |quux        | baz             | bar            |
+|-----------------+------------+-----------------+----------------|
+| Second body     |            |                 |                |
+| 2 line          |            |                 |                |
+|=================+============+=================+================|
+| Footer row      |            |                 |                |
+|-----------------+------------+-----------------+----------------|&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+---
+
+| ---
+| Default aligned | Left aligned | Center aligned | Right aligned
+| -               | :-           | :-:            | -:
+| First body part | Second cell  | Third cell     | fourth cell
+| Second line     | foo          | **strong**     | baz
+| Third line      | quux         | baz            | bar
+| ---
+| Second body
+| 2 line
+| ===
+| Footer row
+
+&amp;gt;Same as above but shorter
+{:.filename}
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-raw&quot; data-lang=&quot;raw&quot;&gt;| ---
+| Default aligned | Left aligned | Center aligned | Right aligned
+| -               | :-           | :-:            | -:
+| First body part | Second cell  | Third cell     | fourth cell
+| Second line     | foo          | **strong**     | baz
+| Third line      | quux         | baz            | bar
+| ---
+| Second body
+| 2 line
+| ===
+| Footer row&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+</description>
+        <pubDate>Mon, 30 Sep 2019 16:47:24 +0800</pubDate>
+        <link>http://localhost:4000/drafts/2019/09/30/test.html</link>
+        <guid isPermaLink="true">http://localhost:4000/drafts/2019/09/30/test.html</guid>
+        
+        
+        <category>drafts</category>
+        
+      </item>
+    
+      <item>
+        <title>1.15.3 HA kubernetes Cluster Playbook (basic environment)</title>
+        <description>&lt;!-- START doctoc generated TOC please keep comment here to allow auto update --&gt;
+&lt;!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE --&gt;
+&lt;p&gt;&lt;strong&gt;Table of Contents&lt;/strong&gt;  &lt;em&gt;generated with &lt;a href=&quot;https://github.com/thlorenz/doctoc&quot;&gt;DocToc&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#extended-etcd-topology&quot;&gt;Extended etcd Topology&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#kubernetes-ha-cluster-with-external-etcd&quot;&gt;Kubernetes HA cluster with external etcd&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#server-matrix&quot;&gt;Server Matrix&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#environment-list&quot;&gt;Environment List&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#etchosts&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/hosts&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#variables&quot;&gt;variables&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#ipaddress&quot;&gt;ipaddress&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#etcd&quot;&gt;etcd&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#keepalived&quot;&gt;keepalived&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#haproxy-206&quot;&gt;Haproxy 2.0.6&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#helm&quot;&gt;helm&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#docker&quot;&gt;docker&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- END doctoc generated TOC please keep comment here to allow auto update --&gt;
+
+&lt;h1 id=&quot;extended-etcd-topology&quot;&gt;Extended etcd Topology&lt;/h1&gt;
+&lt;h2 id=&quot;kubernetes-ha-cluster-with-external-etcd&quot;&gt;&lt;a href=&quot;https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology&quot;&gt;Kubernetes HA cluster with external etcd&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/external-etcd-topology.png&quot; style=&quot;width: 666px;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;server-matrix&quot;&gt;Server Matrix&lt;/h2&gt;
+
+&lt;h3 id=&quot;environment-list&quot;&gt;Environment List&lt;/h3&gt;
+
+&lt;table class=&quot;inner-borders&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Hostname&lt;/th&gt;
+      &lt;th&gt;IP Address&lt;/th&gt;
+      &lt;th&gt;etcd&lt;/th&gt;
+      &lt;th&gt;cfssl &amp;amp; cfssljson&lt;/th&gt;
+      &lt;th&gt;keepalived&lt;/th&gt;
+      &lt;th&gt;haproxy&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;master01&lt;/td&gt;
+      &lt;td&gt;192.168.100.200&lt;/td&gt;
+      &lt;td&gt;master01 (etcd-0)&lt;/td&gt;
+      &lt;td&gt;✔&lt;/td&gt;
+      &lt;td&gt;✔&lt;/td&gt;
+      &lt;td&gt;✔&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;master02&lt;/td&gt;
+      &lt;td&gt;192.168.100.201&lt;/td&gt;
+      &lt;td&gt;master02 (etcd-1)&lt;/td&gt;
+      &lt;td&gt;✔&lt;/td&gt;
+      &lt;td&gt;✔&lt;/td&gt;
+      &lt;td&gt;✔&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;master03&lt;/td&gt;
+      &lt;td&gt;192.168.100.202&lt;/td&gt;
+      &lt;td&gt;master03 (etcd-2)&lt;/td&gt;
+      &lt;td&gt;✔&lt;/td&gt;
+      &lt;td&gt;✔&lt;/td&gt;
+      &lt;td&gt;✔&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;node01&lt;/td&gt;
+      &lt;td&gt;192.168.100.203&lt;/td&gt;
+      &lt;td&gt;✗&lt;/td&gt;
+      &lt;td&gt;✗&lt;/td&gt;
+      &lt;td&gt;✗&lt;/td&gt;
+      &lt;td&gt;✗&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;node02&lt;/td&gt;
+      &lt;td&gt;192.168.100.204&lt;/td&gt;
+      &lt;td&gt;✗&lt;/td&gt;
+      &lt;td&gt;✗&lt;/td&gt;
+      &lt;td&gt;✗&lt;/td&gt;
+      &lt;td&gt;✗&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;virtual IP&lt;/td&gt;
+      &lt;td&gt;192.168.100.250&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;etchosts&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/hosts&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Add for all servers&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;192.168.100.200     master01
+192.168.100.201     master02
+192.168.100.202     master03
+192.168.100.203     worker01
+192.168.100.204     worker02
+
+192.168.100.250     jenkins.marslo.com
+192.168.100.250     prometheus.marslo.com
+192.168.100.250     grafana.marslo.com
+192.168.100.250     dashboard.marslo.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;variables&quot;&gt;variables&lt;/h3&gt;
+&lt;div class=&quot;alert alert-success&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;fa fa-check-square-o&quot;&gt;&lt;/i&gt;
+&lt;b&gt;Tip: &lt;/b&gt;execute the variables in all console (masters) at the very begining, make sure all servers are using the exact same value (and avoid manual input)
+&lt;/div&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;## change if necessary&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# hostname&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;master01Name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'master01'&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;master02Name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'master02'&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;master03Name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'master03'&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# ipaddress&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;master01IP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'192.168.100.200'&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;master01IP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'192.168.100.201'&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;master01IP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'192.168.100.202'&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;virtualIP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'192.168.100.250'&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;leadIP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master01IP&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;leadName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master01Name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;k8sVer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'v1.15.3'&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;cfsslDownloadUrl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'https://pkg.cfssl.org/R1.2'&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;etcdVer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'v3.3.15'&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;etcdDownloadUrl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'https://github.com/etcd-io/etcd/releases/download'&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;etcdSSLPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/etc/etcd/ssl'&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;etcdInitialCluster&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master01Name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;=https://&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master01IP&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;:2380,&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master02Name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;=https://&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master02IP&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;:2380,&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master03Name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;=https://&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master03IP&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;:2380&quot;&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;keepaliveVer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'2.0.18'&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;haproxyVer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'2.0.6'&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;interface&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;netstat &lt;span class=&quot;nt&quot;&gt;-nr&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'UG|UGSc'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'^0.0.0|default'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'[0-9.]{7,15}'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $NF}'&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;ipAddr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;ip a s &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;interface&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;sed&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rn&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'s|.*inet ([0-9\.]{7,15})/[0-9]{2} brd.*$|\1|p'&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;peerName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;hostname&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;tools-setup&quot;&gt;Tools Setup&lt;/h1&gt;
+&lt;h2 id=&quot;cfssl--cfssljson&quot;&gt;cfssl &amp;amp; cfssljson&lt;/h2&gt;
+&lt;div class=&quot;alert alert-success&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;fa fa-check-square-o&quot;&gt;&lt;/i&gt;
+&lt;b&gt;Tip: &lt;/b&gt; cfssl and cfssljson need to be setup in all masters!
+&lt;/div&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;bash &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;curl -o /usr/local/bin/cfssl &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;cfsslDownloadUrl&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/cfssl_linux-amd64&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;bash &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;curl -o /usr/local/bin/cfssljson &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;cfsslDownloadUrl&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/cfssljson_linux-amd64&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo chmod&lt;/span&gt; +x /usr/local/bin/cfssl&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;etcd&quot;&gt;etcd&lt;/h2&gt;
+&lt;div class=&quot;alert alert-success&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;fa fa-check-square-o&quot;&gt;&lt;/i&gt;
+&lt;b&gt;Tip: &lt;/b&gt; etcd need to be setup in all masters!
+&lt;/div&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-sSL&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;etcdDownloadUrl&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;etcdVer&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/etcd-&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;etcdVer&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-linux-amd64&lt;/span&gt;.tar.gz &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    | &lt;span class=&quot;nb&quot;&gt;sudo tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-xzv&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--strip-components&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1 &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; /usr/local/bin/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;keepalived&quot;&gt;keepalived&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Installation
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; ~/temp
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /etc/keepalived/
+
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-fsSL&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;keepaliveDownloadUrl&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/keepalived-&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;keepaliveVer&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;.tar.gz &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+     | &lt;span class=&quot;nb&quot;&gt;tar &lt;/span&gt;xzf - &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; ~/temp
+
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pushd&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/temp/keepalived-&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;keepaliveVer&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./configure &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;make &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo cp &lt;/span&gt;keepalived/keepalived.service /etc/systemd/system/
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;popd&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; ~/temp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Configuration
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;with haproxy&lt;/p&gt;
+
+        &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;bash &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'cat &amp;gt; /etc/keepalived/keepalived.conf'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+  ! Configuration File for keepalived
+
+  global_defs {
+    router_id LVS_DEVEL
+  }
+
+  vrrp_script check_haproxy {
+    script &quot;killall -0 haproxy&quot;
+    interval 3
+    weight -2
+    fall 10
+    rise 2
+  }
+
+  vrrp_instance VI_1 {
+    state MASTER
+    interface &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;interface&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+    virtual_router_id 51
+    priority 50
+    advert_int 1
+    authentication {
+      auth_type PASS
+      auth_pass 35f18af7190d51c9f7f78f37300a0cbd
+    }
+    virtual_ipaddress {
+      &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;virtualIP&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+    }
+    track_script {
+      check_haproxy
+    }
+  }
+&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;  EOF
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;without haproxy&lt;/p&gt;
+
+        &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;bash &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'cat &amp;gt; /etc/keepalived/keepalived.conf'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+  ! Configuration File for keepalived
+  global_defs {
+    router_id LVS_DEVEL
+  }
+  vrrp_script check_apiserver {
+    script &quot;/etc/keepalived/check_apiserver.sh&quot;
+    interval 3
+    weight -2
+    fall 10
+    rise 2
+  }
+  vrrp_instance VI_1 {
+    state MASTER
+    interface &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;interface&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+    virtual_router_id 51
+    priority 50
+    authentication {
+      auth_type PASS
+      auth_pass 4be37dc3b4c90194d1600c483e10ad1d
+    }
+    virtual_ipaddress {
+      &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;virtualIP&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+    }
+    track_script {
+      check_apiserver
+    }
+  }
+&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;  EOF
+
+&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;bash &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'cat &amp;gt; /etc/keepalived/check_apiserver.sh'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+  #!/bin/sh
+  errorExit() {
+    echo &quot;*** &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;*&quot; 1&amp;gt;&amp;amp;2
+    exit 1
+  }
+  curl --silent                           &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+       --max-time 2                       &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+       --insecure https://localhost:6443/ &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+       -o /dev/null                       &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+      || errorExit 'Error GET https://localhost:6443/'
+
+  if ip addr | grep -q &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;virtualIpAddr&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;; then
+      curl --silent                                  &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+           --max-time 2                              &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+           --insecure https://&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;virtualIpAddr&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;:6443/ &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+           -o /dev/null                              &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+           || errorExit &quot;Error GET https://&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;virtualIpAddr&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;:6443/&quot;
+  fi
+&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;  EOF
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;start keepalived serice and verify
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;keepalived.service
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl start keepalived.service
+
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl is-enabled keepalived.service
+  enabled
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl is-active keepalived.service
+  active
+
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ip a s &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;interface&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+  2: eno1: &amp;lt;BROADCAST,MULTICAST,UP,LOWER_UP&amp;gt; mtu 1500 qdisc mq state UP group default qlen 1000
+      &lt;span class=&quot;nb&quot;&gt;link&lt;/span&gt;/ether 00:50:50:85:96:64 brd ff:ff:ff:ff:ff:ff
+      inet 192.168.100.200/24 brd 192.168.100.255 scope global noprefixroute eno1
+         valid_lft forever preferred_lft forever
+      inet 192.168.100.250/32 scope global eno1
+         valid_lft forever preferred_lft forever
+      inet6 fe80::250:fe85:86ff:9624/64 scope &lt;span class=&quot;nb&quot;&gt;link
+         &lt;/span&gt;valid_lft forever preferred_lft forever
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;div class=&quot;alert alert-success&quot; role=&quot;alert&quot;&gt;
+  &lt;i class=&quot;fa fa-check-square-o&quot;&gt;&lt;/i&gt;
+  &lt;b&gt;Tip: &lt;/b&gt; One of the master will be setup to virutal dual networking card and show 2 ip addresses. The one without Broadcast is the virutal IP.
+  &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;haproxy-206&quot;&gt;Haproxy 2.0.6&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Install haproxy from source code
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-fsSL&lt;/span&gt; http://www.haproxy.org/download/&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;haproxyVer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;%\.*&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;/src/haproxy-&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;haproxyVer&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;.tar.gz &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         | &lt;span class=&quot;nb&quot;&gt;tar &lt;/span&gt;xzf - &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; ~
+
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pushd&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/haproxy-&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;haproxyVer&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;make &lt;span class=&quot;nv&quot;&gt;TARGET&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;linux-glibc &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;USE_LINUX_TPROXY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;USE_ZLIB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;USE_REGPARM&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;USE_PCRE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;USE_PCRE_JIT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;USE_OPENSSL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;SSL_INC&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/include &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;SSL_LIB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/lib &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;ADDLIB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-ldl&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;USE_SYSTEMD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;make &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo cp &lt;/span&gt;haproxy /usr/sbin/
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo cp &lt;/span&gt;examples/haproxy.init /etc/init.d/haproxy &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sudo chmod&lt;/span&gt; +x &lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;popd&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; ~/haproxy-&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;haproxyVer&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Configure Haproxy
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;bash &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'cat /etc/haproxy/haproxy.cfg'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+  #---------------------------------------------------------------------
+  # Example configuration for a possible web application.  See the
+  # full configuration options online.
+  #
+  #   http://haproxy.1wt.eu/download/2.0/doc/configuration.txt
+  #
+  #---------------------------------------------------------------------
+
+  #---------------------------------------------------------------------
+  # Global settings
+  #---------------------------------------------------------------------
+  global
+      # to have these messages end up in /var/log/haproxy.log you will
+      # need to:
+      #
+      # 1) configure syslog to accept network log events.  This is done
+      #    by adding the '-r' option to the SYSLOGD_OPTIONS in
+      #    /etc/sysconfig/syslog
+      #
+      # 2) configure local2 events to go to the /var/log/haproxy.log
+      #   file. A line like the following can be added to
+      #   /etc/sysconfig/syslog
+      #
+      #    local2.*                       /var/log/haproxy.log
+      #
+      log         127.0.0.1 local2
+
+      chroot      /var/lib/haproxy
+      pidfile     /var/run/haproxy.pid
+      maxconn     4000
+      user        haproxy
+      group       haproxy
+      daemon
+
+      # turn on stats unix socket
+      stats socket /var/lib/haproxy/stats
+
+  #---------------------------------------------------------------------
+  # common defaults that all the 'listen' and 'backend' sections will
+  # use if not designated in their block
+  #---------------------------------------------------------------------
+  defaults
+      mode                    http
+      log                     global
+      option                  httplog
+      option                  dontlognull
+      option http-server-close
+      option forwardfor       except 127.0.0.0/8
+      option                  redispatch
+      retries                 3
+      timeout http-request    10s
+      timeout queue           1m
+      timeout connect         10s
+      timeout client          1m
+      timeout server          1m
+      timeout http-keep-alive 10s
+      timeout check           10s
+      maxconn                 3000
+
+  #---------------------------------------------------------------------
+  # kubernetes apiserver frontend which proxys to the backends
+  #---------------------------------------------------------------------
+  frontend kubernetes-apiserver
+      mode                 tcp
+      bind                 *:16443
+      option               tcplog
+      default_backend      kubernetes-apiserver
+
+  #---------------------------------------------------------------------
+  # round robin balancing between the various backends
+  #---------------------------------------------------------------------
+  backend kubernetes-apiserver
+      mode        tcp
+      balance     roundrobin
+      option      tcplog
+      option      tcp-check
+      server      &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master01Name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master01IP&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;:6443 check
+      server      &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master02Name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master02IP&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;:6443 check
+      server      &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master03Name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master03IP&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;:6443 check
+
+  #---------------------------------------------------------------------
+  # collection haproxy statistics message
+  #---------------------------------------------------------------------
+  listen stats
+      bind                 :8000
+      stats auth           admin:devops
+      maxconn              50
+      stats refresh        10s
+      stats realm          HAProxy&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;Statistics
+      stats uri            /healthy
+&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;  EOF
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Configure Service
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;bash &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'cat &amp;gt; /lib/systemd/system/haproxy.service'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+  [Unit]
+  Description=HAProxy Load Balancer
+  After=network.target syslog.service
+  Wants=syslog.service
+
+  [Service]
+  Environment=&quot;CONFIG=/etc/haproxy/haproxy.cfg&quot; &quot;PIDFILE=/run/haproxy.pid&quot;
+  EnvironmentFile=-/etc/default/haproxy
+  ExecStartPre=/usr/sbin/haproxy -f &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CONFIG&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; -c -q
+  ExecStart=/usr/sbin/haproxy -W -f &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CONFIG&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; -p &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PIDFILE&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$EXTRAOPTS&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+  ExecReload=/usr/sbin/haproxy -f &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CONFIG&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; -c -q &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$EXTRAOPTS&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RELOADOPTS&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+  ExecReload=/bin/kill -USR2 &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$MAINPID&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+  KillMode=mixed
+  Restart=always
+  Type=forking
+
+  # The following lines leverage SystemD's sandboxing options to provide
+  # defense in depth protection at the expense of restricting some flexibility
+  # in your setup (e.g. placement of your configuration files) or possibly
+  # reduced performance. See systemd.service(5) and systemd.exec(5) for further
+  # information.
+
+  # NoNewPrivileges=true
+  # ProtectHome=true
+  # If you want to use 'ProtectSystem=strict' you should whitelist the PIDFILE,
+  # any state files and any other files written using 'ReadWritePaths' or
+  # 'RuntimeDirectory'.
+  # ProtectSystem=true
+  # ProtectKernelTunables=true
+  # ProtectKernelModules=true
+  # ProtectControlGroups=true
+  # If your SystemD version supports them, you can add: @reboot, @swap, @sync
+  # SystemCallFilter=~@cpu-emulation @keyring @module @obsolete @raw-io
+
+  [Install]
+  WantedBy=multi-user.target
+&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;  EOF
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Start Service and Verify
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl enabled haproxy.service
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl start haproxy.service
+
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl is-enabled haproxy.service
+  enabled
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl is-active haproxy.service
+  active
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Result
+&lt;img src=&quot;http://localhost:4000/assets/images/haproxy.png&quot; style=&quot;width: 999px;&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;helm&quot;&gt;helm&lt;/h2&gt;
+
+&lt;h2 id=&quot;docker&quot;&gt;docker&lt;/h2&gt;
+
+</description>
+        <pubDate>Wed, 25 Sep 2019 16:47:24 +0800</pubDate>
+        <link>http://localhost:4000/kubernetes/2019/09/25/ha-cluster-step1.html</link>
+        <guid isPermaLink="true">http://localhost:4000/kubernetes/2019/09/25/ha-cluster-step1.html</guid>
+        
+        
+        <category>kubernetes</category>
+        
+      </item>
+    
+      <item>
+        <title>Hello World!</title>
+        <description>&lt;p&gt;Awesome Marslo! &lt;br /&gt;
+This is my first post.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 28 Apr 2017 19:23:24 +0800</pubDate>
+        <link>http://localhost:4000/marslo/2017/04/28/fist-post.html</link>
+        <guid isPermaLink="true">http://localhost:4000/marslo/2017/04/28/fist-post.html</guid>
+        
+        
+        <category>marslo</category>
+        
+      </item>
+    
+  </channel>
+</rss>

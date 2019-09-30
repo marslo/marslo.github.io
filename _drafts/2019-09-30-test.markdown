@@ -2,7 +2,7 @@
 layout: post
 title:  test
 date:   2019-09-30 16:47:24 +0800
-categories: ["kubernetes"]
+categories: ["drafts"]
 ---
 
 
@@ -24,16 +24,19 @@ categories: ["kubernetes"]
   <p><a href="https://github.com/strongloop/loopback-next/blob/master/docs/site/sidebars/lb4_sidebar.yml"><code class="highlighter-rouge">lb4_sidebar.yml</code></a> is sourced from <a href="http://github.com/strongloop/loopback-next/">loopback-next</a></p>
 
 </div>
-<!--
-<div class=mwarn>
+
+
+<div class=warn>
 **Warning:** remember to do bookeping
 <div/>
--->
+
+<div class="alert alert-warning">
+<b>INFO:</b> etcd need to be setup in all masters!
+</div>
 
 
 
-
-Below are the examples of the default table styling.
+h1. Below are the examples of the default table styling.
 
 ## Simple table
 
