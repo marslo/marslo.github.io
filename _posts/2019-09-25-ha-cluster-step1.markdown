@@ -484,7 +484,7 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
                     | grep 18\.09 \
                     | awk -F' ' '{print $2}' \
                     | awk -F':' '{print $NF}' \
-                )
+                 )
     $ sudo yum install -y \
              docker-ce-${dockerVer}.x86_64 \
              docker-ce-cli-${dockerVer}.x86_64 \
