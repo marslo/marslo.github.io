@@ -27,23 +27,23 @@ categories: ["kubernetes"]
 # Extended etcd Topology
 ## [Kubernetes HA cluster with external etcd](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology)
 
-<img src="{{site.url}}/images/external-etcd-topology.png" style="width: 666px;" />
+<img src="{{site.url}}/assets/images/external-etcd-topology.png" style="width: 666px;" />
 
 ## Server Matrix
 
 ### Environment List
 
-```bash
-| Hostname   | IP Address      | etcd              |
-|------------|-----------------|-------------------|
-| master01   | 192.168.100.200 | master01 (etcd-0) |
-| master02   | 192.168.100.201 | master02 (etcd-1) |
-| master03   | 192.168.100.202 | master03 (etcd-2) |
-| node01     | 192.168.100.203 |                   |
-| node02     | 192.168.100.204 |                   |
+| Hostname   | IP Address      | etcd              | cfssl & cfssljson | keepalived | haproxy  |
+|------------|-----------------|-------------------|-------------------|------------|----------|
+| master01   | 192.168.100.200 | master01 (etcd-0) | &#x2714;          | &#x2714;   | &#x2714; |
+| master02   | 192.168.100.201 | master02 (etcd-1) | &#x2714;          | &#x2714;   | &#x2714; |
+| master03   | 192.168.100.202 | master03 (etcd-2) | &#x2714;          | &#x2714;   | &#x2714; |
+| node01     | 192.168.100.203 | &#x2717;          | &#x2717;          | &#x2717;   | &#x2717; |
+| node02     | 192.168.100.204 | &#x2717;          | &#x2717;          | &#x2717;   | &#x2717; |
 |            |                 |                   |
 | virtual IP | 192.168.100.250 |                   |
-```
+|------------|-----------------|-------------------|
+{:.inner-borders}
 
 ### `/etc/hosts`
 
@@ -63,9 +63,11 @@ Add for all servers
 ```
 
 ### variables
-<div class="alert alert-warning">
-<b>INFO:</b> execute the variables in all console (masters) at the very begining, make sure all servers are using the exact same value (and avoid manual input)
+<div class="alert alert-success" role="alert">
+<i class="fa fa-check-square-o"></i>
+<b>Tip: </b>execute the variables in all console (masters) at the very begining, make sure all servers are using the exact same value (and avoid manual input)
 </div>
+
 ```bash
 ## change if necessary
 # hostname
@@ -100,8 +102,9 @@ peerName=$(hostname)
 
 # Tools Setup
 ## cfssl & cfssljson
-<div class="alert alert-warning">
-<b>INFO:</b> cfssl and cfssljson need to be setup in all masters!
+<div class="alert alert-success" role="alert">
+<i class="fa fa-check-square-o"></i>
+<b>Tip: </b> cfssl and cfssljson need to be setup in all masters!
 </div>
 
 ```bash
@@ -111,8 +114,9 @@ $ sudo chmod +x /usr/local/bin/cfssl*
 ```
 
 ## etcd
-<div class="alert alert-warning">
-<b>INFO:</b> etcd need to be setup in all masters!
+<div class="alert alert-success" role="alert">
+<i class="fa fa-check-square-o"></i>
+<b>Tip: </b> etcd need to be setup in all masters!
 </div>
 
 ```bash
@@ -252,8 +256,9 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
            valid_lft forever preferred_lft forever
     ```
 
-    <div class="alert alert-warning">
-    <b>INFO:</b> One of the master will be setup to virutal dual networking card and show 2 ip addresses. The one without Broadcast is the virutal IP.
+    <div class="alert alert-success" role="alert">
+    <i class="fa fa-check-square-o"></i>
+    <b>Tip: </b> One of the master will be setup to virutal dual networking card and show 2 ip addresses. The one without Broadcast is the virutal IP.
     </div>
 
 ## Haproxy 2.0.6
@@ -431,7 +436,7 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
     ```
 
 - Result
-<img src="{{site.url}}/images/haproxy.png" style="width: 999px;" />
+<img src="{{site.url}}/assets/images/haproxy.png" style="width: 999px;" />
 
 ## helm
 

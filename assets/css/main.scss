@@ -95,7 +95,7 @@ padding-bottom: 0.3em;
   padding-bottom: 5em;
 }
 pre{
-background-color: black !important;
+background-color: #083750 !important;
 border:none !important;
 border-radius: 0px !important;
 font-size: 20px !important;
@@ -175,7 +175,46 @@ div.minfo {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
   border-radius: 5px;
   padding: 0.5em;
-  
+}
+
+//********************************************************
+//                 Table
+//********************************************************
+
+.post-content > table {
+  background-color: #083750 ;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  margin: 0 auto 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  tbody {
+    box-shadow: inset 0 1px 10px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.1), 0 -1px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  th {
+    text-transform: uppercase;
+    text-align: center;
+    padding: .5em .75em;
+  }
+  td {
+    text-align: center;
+    padding: .5em;
+  }
+
+}
+
+table.wide {
+  width: 100%;
+  max-width: 100%;
+}
+
+table.inner-borders {
+  border-collapse: collapse;
+  border-style: hidden;
+  td {
+    border: 1px solid #022335;
+  }
 }
 
 // Our variables
@@ -196,7 +235,7 @@ $grey-color-light: lighten($grey-color, 40%);
 $grey-color-dark:  darken($grey-color, 25%);
 
 // Width of the content area
-$content-width:    800px;
+$content-width:    1000px;
 
 $on-palm:          600px;
 $on-laptop:        800px;
@@ -219,6 +258,5 @@ $on-laptop:        800px;
 
 
 // Import partials from `sass_dir` (defaults to `_sass`)
-@import
-        "syntax-highlighting"
-;
+@import "syntax-highlighting" ;
+        /* "layout.scss" ; */
