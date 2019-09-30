@@ -6,7 +6,9 @@
 
     .highlighter-rouge & {
       background: #083750 !important;
-      color: #c1ad1c !important
+      color: #c1ad1c !important;
+      border-radius: 10px !important;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
     .c     { color: #5a5a5a; font-style: italic } // Comment

@@ -60,7 +60,7 @@ code { background-color: #083750 !important; color: #c1ad1c !important; border: 
 
 .navbar { box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.15); }
 
-img { border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); display: block; margin: auto; }
+img { border-radius: 10px; /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */ display: block; margin: auto; }
 
 div.mwarn { background-color: #4d1515; border-color: #691c1c; border-left: 5px solid #691c1c; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19); border-radius: 5px; padding: 0.5em; }
 
@@ -69,7 +69,7 @@ div.minfo { background-color: #ff9800; border-color: #f1a32f; border-left: 5px s
 /** Syntax highlighting styles */
 .highlight { background: #083750; /* .s     { color: #b58900 } // Literal.String */ }
 
-.highlighter-rouge .highlight { background: #083750 !important; color: #c1ad1c !important; }
+.highlighter-rouge .highlight { background: #083750 !important; color: #c1ad1c !important; border-radius: 10px !important; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
 
 .highlight .c { color: #5a5a5a; font-style: italic; }
 

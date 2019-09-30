@@ -5,8 +5,8 @@
     <description>&lt;h2&gt;Hello, there!&lt;/h2&gt;&lt;h1&gt;Welcome to my world!&lt;/h1&gt;</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 30 Sep 2019 16:19:51 +0800</pubDate>
-    <lastBuildDate>Mon, 30 Sep 2019 16:19:51 +0800</lastBuildDate>
+    <pubDate>Mon, 30 Sep 2019 17:10:05 +0800</pubDate>
+    <lastBuildDate>Mon, 30 Sep 2019 17:10:05 +0800</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -300,7 +300,154 @@
   &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; ~/haproxy-&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;haproxyVer&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-  &lt;li&gt;Configure Service&lt;/li&gt;
+  &lt;li&gt;Configure Haproxy
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;bash &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'cat /etc/haproxy/haproxy.cfg'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+  #---------------------------------------------------------------------
+  # Example configuration for a possible web application.  See the
+  # full configuration options online.
+  #
+  #   http://haproxy.1wt.eu/download/2.0/doc/configuration.txt
+  #
+  #---------------------------------------------------------------------
+
+  #---------------------------------------------------------------------
+  # Global settings
+  #---------------------------------------------------------------------
+  global
+      # to have these messages end up in /var/log/haproxy.log you will
+      # need to:
+      #
+      # 1) configure syslog to accept network log events.  This is done
+      #    by adding the '-r' option to the SYSLOGD_OPTIONS in
+      #    /etc/sysconfig/syslog
+      #
+      # 2) configure local2 events to go to the /var/log/haproxy.log
+      #   file. A line like the following can be added to
+      #   /etc/sysconfig/syslog
+      #
+      #    local2.*                       /var/log/haproxy.log
+      #
+      log         127.0.0.1 local2
+
+      chroot      /var/lib/haproxy
+      pidfile     /var/run/haproxy.pid
+      maxconn     4000
+      user        haproxy
+      group       haproxy
+      daemon
+
+      # turn on stats unix socket
+      stats socket /var/lib/haproxy/stats
+
+  #---------------------------------------------------------------------
+  # common defaults that all the 'listen' and 'backend' sections will
+  # use if not designated in their block
+  #---------------------------------------------------------------------
+  defaults
+      mode                    http
+      log                     global
+      option                  httplog
+      option                  dontlognull
+      option http-server-close
+      option forwardfor       except 127.0.0.0/8
+      option                  redispatch
+      retries                 3
+      timeout http-request    10s
+      timeout queue           1m
+      timeout connect         10s
+      timeout client          1m
+      timeout server          1m
+      timeout http-keep-alive 10s
+      timeout check           10s
+      maxconn                 3000
+
+  #---------------------------------------------------------------------
+  # kubernetes apiserver frontend which proxys to the backends
+  #---------------------------------------------------------------------
+  frontend kubernetes-apiserver
+      mode                 tcp
+      bind                 *:16443
+      option               tcplog
+      default_backend      kubernetes-apiserver
+
+  #---------------------------------------------------------------------
+  # round robin balancing between the various backends
+  #---------------------------------------------------------------------
+  backend kubernetes-apiserver
+      mode        tcp
+      balance     roundrobin
+      option      tcplog
+      option      tcp-check
+      server      &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master01Name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master01IP&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;:6443 check
+      server      &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master02Name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master02IP&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;:6443 check
+      server      &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master03Name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;master03IP&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;:6443 check
+
+  #---------------------------------------------------------------------
+  # collection haproxy statistics message
+  #---------------------------------------------------------------------
+  listen stats
+      bind                 :8000
+      stats auth           admin:devops
+      maxconn              50
+      stats refresh        10s
+      stats realm          HAProxy&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;Statistics
+      stats uri            /healthy
+&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;  EOF
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Configure Service
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;bash &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'cat &amp;gt; /lib/systemd/system/haproxy.service'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+  [Unit]
+  Description=HAProxy Load Balancer
+  After=network.target syslog.service
+  Wants=syslog.service
+
+  [Service]
+  Environment=&quot;CONFIG=/etc/haproxy/haproxy.cfg&quot; &quot;PIDFILE=/run/haproxy.pid&quot;
+  EnvironmentFile=-/etc/default/haproxy
+  ExecStartPre=/usr/sbin/haproxy -f &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CONFIG&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; -c -q
+  ExecStart=/usr/sbin/haproxy -W -f &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CONFIG&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; -p &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PIDFILE&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$EXTRAOPTS&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+  ExecReload=/usr/sbin/haproxy -f &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CONFIG&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; -c -q &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$EXTRAOPTS&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RELOADOPTS&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+  ExecReload=/bin/kill -USR2 &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$MAINPID&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+  KillMode=mixed
+  Restart=always
+  Type=forking
+
+  # The following lines leverage SystemD's sandboxing options to provide
+  # defense in depth protection at the expense of restricting some flexibility
+  # in your setup (e.g. placement of your configuration files) or possibly
+  # reduced performance. See systemd.service(5) and systemd.exec(5) for further
+  # information.
+
+  # NoNewPrivileges=true
+  # ProtectHome=true
+  # If you want to use 'ProtectSystem=strict' you should whitelist the PIDFILE,
+  # any state files and any other files written using 'ReadWritePaths' or
+  # 'RuntimeDirectory'.
+  # ProtectSystem=true
+  # ProtectKernelTunables=true
+  # ProtectKernelModules=true
+  # ProtectControlGroups=true
+  # If your SystemD version supports them, you can add: @reboot, @swap, @sync
+  # SystemCallFilter=~@cpu-emulation @keyring @module @obsolete @raw-io
+
+  [Install]
+  WantedBy=multi-user.target
+&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;  EOF
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Start Service and Verify
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl enabled haproxy.service
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl start haproxy.service
+
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl is-enabled haproxy.service
+  enabled
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl is-active haproxy.service
+  active
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Result
+&lt;img src=&quot;http://localhost:4000/images/haproxy.png&quot; style=&quot;width: 999px;&quot; /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;helm&quot;&gt;helm&lt;/h2&gt;

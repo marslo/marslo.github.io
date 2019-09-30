@@ -281,9 +281,160 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
     $ popd
     $ rm -rf ~/haproxy-${haproxyVer}
     ```
+
+- Configure Haproxy
+    ```bash
+    $ sudo bash -c 'cat /etc/haproxy/haproxy.cfg' << EOF
+    #---------------------------------------------------------------------
+    # Example configuration for a possible web application.  See the
+    # full configuration options online.
+    #
+    #   http://haproxy.1wt.eu/download/2.0/doc/configuration.txt
+    #
+    #---------------------------------------------------------------------
+
+    #---------------------------------------------------------------------
+    # Global settings
+    #---------------------------------------------------------------------
+    global
+        # to have these messages end up in /var/log/haproxy.log you will
+        # need to:
+        #
+        # 1) configure syslog to accept network log events.  This is done
+        #    by adding the '-r' option to the SYSLOGD_OPTIONS in
+        #    /etc/sysconfig/syslog
+        #
+        # 2) configure local2 events to go to the /var/log/haproxy.log
+        #   file. A line like the following can be added to
+        #   /etc/sysconfig/syslog
+        #
+        #    local2.*                       /var/log/haproxy.log
+        #
+        log         127.0.0.1 local2
+
+        chroot      /var/lib/haproxy
+        pidfile     /var/run/haproxy.pid
+        maxconn     4000
+        user        haproxy
+        group       haproxy
+        daemon
+
+        # turn on stats unix socket
+        stats socket /var/lib/haproxy/stats
+
+    #---------------------------------------------------------------------
+    # common defaults that all the 'listen' and 'backend' sections will
+    # use if not designated in their block
+    #---------------------------------------------------------------------
+    defaults
+        mode                    http
+        log                     global
+        option                  httplog
+        option                  dontlognull
+        option http-server-close
+        option forwardfor       except 127.0.0.0/8
+        option                  redispatch
+        retries                 3
+        timeout http-request    10s
+        timeout queue           1m
+        timeout connect         10s
+        timeout client          1m
+        timeout server          1m
+        timeout http-keep-alive 10s
+        timeout check           10s
+        maxconn                 3000
+
+    #---------------------------------------------------------------------
+    # kubernetes apiserver frontend which proxys to the backends
+    #---------------------------------------------------------------------
+    frontend kubernetes-apiserver
+        mode                 tcp
+        bind                 *:16443
+        option               tcplog
+        default_backend      kubernetes-apiserver
+
+    #---------------------------------------------------------------------
+    # round robin balancing between the various backends
+    #---------------------------------------------------------------------
+    backend kubernetes-apiserver
+        mode        tcp
+        balance     roundrobin
+        option      tcplog
+        option      tcp-check
+        server      ${master01Name} ${master01IP}:6443 check
+        server      ${master02Name} ${master02IP}:6443 check
+        server      ${master03Name} ${master03IP}:6443 check
+
+    #---------------------------------------------------------------------
+    # collection haproxy statistics message
+    #---------------------------------------------------------------------
+    listen stats
+        bind                 :8000
+        stats auth           admin:devops
+        maxconn              50
+        stats refresh        10s
+        stats realm          HAProxy\ Statistics
+        stats uri            /healthy
+    EOF
+    ```
+
 - Configure Service
+    ```bash
+    $ sudo bash -c 'cat > /lib/systemd/system/haproxy.service' << EOF
+    [Unit]
+    Description=HAProxy Load Balancer
+    After=network.target syslog.service
+    Wants=syslog.service
+
+    [Service]
+    Environment="CONFIG=/etc/haproxy/haproxy.cfg" "PIDFILE=/run/haproxy.pid"
+    EnvironmentFile=-/etc/default/haproxy
+    ExecStartPre=/usr/sbin/haproxy -f $CONFIG -c -q
+    ExecStart=/usr/sbin/haproxy -W -f $CONFIG -p $PIDFILE $EXTRAOPTS
+    ExecReload=/usr/sbin/haproxy -f $CONFIG -c -q $EXTRAOPTS $RELOADOPTS
+    ExecReload=/bin/kill -USR2 $MAINPID
+    KillMode=mixed
+    Restart=always
+    Type=forking
+
+    # The following lines leverage SystemD's sandboxing options to provide
+    # defense in depth protection at the expense of restricting some flexibility
+    # in your setup (e.g. placement of your configuration files) or possibly
+    # reduced performance. See systemd.service(5) and systemd.exec(5) for further
+    # information.
+
+    # NoNewPrivileges=true
+    # ProtectHome=true
+    # If you want to use 'ProtectSystem=strict' you should whitelist the PIDFILE,
+    # any state files and any other files written using 'ReadWritePaths' or
+    # 'RuntimeDirectory'.
+    # ProtectSystem=true
+    # ProtectKernelTunables=true
+    # ProtectKernelModules=true
+    # ProtectControlGroups=true
+    # If your SystemD version supports them, you can add: @reboot, @swap, @sync
+    # SystemCallFilter=~@cpu-emulation @keyring @module @obsolete @raw-io
+
+    [Install]
+    WantedBy=multi-user.target
+    EOF
+    ```
+- Start Service and Verify
+    ```bash
+    $ sudo systemctl enabled haproxy.service
+    $ sudo systemctl start haproxy.service
+
+    $ sudo systemctl is-enabled haproxy.service
+    enabled
+    $ sudo systemctl is-active haproxy.service
+    active
+    ```
+
+- Result
+<img src="{{site.url}}/images/haproxy.png" style="width: 999px;" />
 
 ## helm
 
 ## docker
+
 

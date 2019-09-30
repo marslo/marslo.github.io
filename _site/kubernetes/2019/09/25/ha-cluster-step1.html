@@ -425,7 +425,154 @@
   <span class="nv">$ </span><span class="nb">rm</span> <span class="nt">-rf</span> ~/haproxy-<span class="k">${</span><span class="nv">haproxyVer</span><span class="k">}</span>
 </code></pre></div>    </div>
   </li>
-  <li>Configure Service</li>
+  <li>Configure Haproxy
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">sudo </span>bash <span class="nt">-c</span> <span class="s1">'cat /etc/haproxy/haproxy.cfg'</span> <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="sh">
+  #---------------------------------------------------------------------
+  # Example configuration for a possible web application.  See the
+  # full configuration options online.
+  #
+  #   http://haproxy.1wt.eu/download/2.0/doc/configuration.txt
+  #
+  #---------------------------------------------------------------------
+
+  #---------------------------------------------------------------------
+  # Global settings
+  #---------------------------------------------------------------------
+  global
+      # to have these messages end up in /var/log/haproxy.log you will
+      # need to:
+      #
+      # 1) configure syslog to accept network log events.  This is done
+      #    by adding the '-r' option to the SYSLOGD_OPTIONS in
+      #    /etc/sysconfig/syslog
+      #
+      # 2) configure local2 events to go to the /var/log/haproxy.log
+      #   file. A line like the following can be added to
+      #   /etc/sysconfig/syslog
+      #
+      #    local2.*                       /var/log/haproxy.log
+      #
+      log         127.0.0.1 local2
+
+      chroot      /var/lib/haproxy
+      pidfile     /var/run/haproxy.pid
+      maxconn     4000
+      user        haproxy
+      group       haproxy
+      daemon
+
+      # turn on stats unix socket
+      stats socket /var/lib/haproxy/stats
+
+  #---------------------------------------------------------------------
+  # common defaults that all the 'listen' and 'backend' sections will
+  # use if not designated in their block
+  #---------------------------------------------------------------------
+  defaults
+      mode                    http
+      log                     global
+      option                  httplog
+      option                  dontlognull
+      option http-server-close
+      option forwardfor       except 127.0.0.0/8
+      option                  redispatch
+      retries                 3
+      timeout http-request    10s
+      timeout queue           1m
+      timeout connect         10s
+      timeout client          1m
+      timeout server          1m
+      timeout http-keep-alive 10s
+      timeout check           10s
+      maxconn                 3000
+
+  #---------------------------------------------------------------------
+  # kubernetes apiserver frontend which proxys to the backends
+  #---------------------------------------------------------------------
+  frontend kubernetes-apiserver
+      mode                 tcp
+      bind                 *:16443
+      option               tcplog
+      default_backend      kubernetes-apiserver
+
+  #---------------------------------------------------------------------
+  # round robin balancing between the various backends
+  #---------------------------------------------------------------------
+  backend kubernetes-apiserver
+      mode        tcp
+      balance     roundrobin
+      option      tcplog
+      option      tcp-check
+      server      </span><span class="k">${</span><span class="nv">master01Name</span><span class="k">}</span><span class="sh"> </span><span class="k">${</span><span class="nv">master01IP</span><span class="k">}</span><span class="sh">:6443 check
+      server      </span><span class="k">${</span><span class="nv">master02Name</span><span class="k">}</span><span class="sh"> </span><span class="k">${</span><span class="nv">master02IP</span><span class="k">}</span><span class="sh">:6443 check
+      server      </span><span class="k">${</span><span class="nv">master03Name</span><span class="k">}</span><span class="sh"> </span><span class="k">${</span><span class="nv">master03IP</span><span class="k">}</span><span class="sh">:6443 check
+
+  #---------------------------------------------------------------------
+  # collection haproxy statistics message
+  #---------------------------------------------------------------------
+  listen stats
+      bind                 :8000
+      stats auth           admin:devops
+      maxconn              50
+      stats refresh        10s
+      stats realm          HAProxy</span><span class="se">\ </span><span class="sh">Statistics
+      stats uri            /healthy
+</span><span class="no">  EOF
+</span></code></pre></div>    </div>
+  </li>
+  <li>Configure Service
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">sudo </span>bash <span class="nt">-c</span> <span class="s1">'cat &gt; /lib/systemd/system/haproxy.service'</span> <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="sh">
+  [Unit]
+  Description=HAProxy Load Balancer
+  After=network.target syslog.service
+  Wants=syslog.service
+
+  [Service]
+  Environment="CONFIG=/etc/haproxy/haproxy.cfg" "PIDFILE=/run/haproxy.pid"
+  EnvironmentFile=-/etc/default/haproxy
+  ExecStartPre=/usr/sbin/haproxy -f </span><span class="nv">$CONFIG</span><span class="sh"> -c -q
+  ExecStart=/usr/sbin/haproxy -W -f </span><span class="nv">$CONFIG</span><span class="sh"> -p </span><span class="nv">$PIDFILE</span><span class="sh"> </span><span class="nv">$EXTRAOPTS</span><span class="sh">
+  ExecReload=/usr/sbin/haproxy -f </span><span class="nv">$CONFIG</span><span class="sh"> -c -q </span><span class="nv">$EXTRAOPTS</span><span class="sh"> </span><span class="nv">$RELOADOPTS</span><span class="sh">
+  ExecReload=/bin/kill -USR2 </span><span class="nv">$MAINPID</span><span class="sh">
+  KillMode=mixed
+  Restart=always
+  Type=forking
+
+  # The following lines leverage SystemD's sandboxing options to provide
+  # defense in depth protection at the expense of restricting some flexibility
+  # in your setup (e.g. placement of your configuration files) or possibly
+  # reduced performance. See systemd.service(5) and systemd.exec(5) for further
+  # information.
+
+  # NoNewPrivileges=true
+  # ProtectHome=true
+  # If you want to use 'ProtectSystem=strict' you should whitelist the PIDFILE,
+  # any state files and any other files written using 'ReadWritePaths' or
+  # 'RuntimeDirectory'.
+  # ProtectSystem=true
+  # ProtectKernelTunables=true
+  # ProtectKernelModules=true
+  # ProtectControlGroups=true
+  # If your SystemD version supports them, you can add: @reboot, @swap, @sync
+  # SystemCallFilter=~@cpu-emulation @keyring @module @obsolete @raw-io
+
+  [Install]
+  WantedBy=multi-user.target
+</span><span class="no">  EOF
+</span></code></pre></div>    </div>
+  </li>
+  <li>Start Service and Verify
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">sudo </span>systemctl enabled haproxy.service
+  <span class="nv">$ </span><span class="nb">sudo </span>systemctl start haproxy.service
+
+  <span class="nv">$ </span><span class="nb">sudo </span>systemctl is-enabled haproxy.service
+  enabled
+  <span class="nv">$ </span><span class="nb">sudo </span>systemctl is-active haproxy.service
+  active
+</code></pre></div>    </div>
+  </li>
+  <li>Result
+<img src="http://localhost:4000/images/haproxy.png" style="width: 999px;" /></li>
 </ul>
 
 <h2 id="helm">helm</h2>
