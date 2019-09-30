@@ -5,8 +5,8 @@
     <description>&lt;h2&gt;Hello, there!&lt;/h2&gt;&lt;h1&gt;Welcome to my world!&lt;/h1&gt;</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 30 Sep 2019 21:12:29 +0800</pubDate>
-    <lastBuildDate>Mon, 30 Sep 2019 21:12:29 +0800</lastBuildDate>
+    <pubDate>Mon, 30 Sep 2019 21:34:18 +0800</pubDate>
+    <lastBuildDate>Mon, 30 Sep 2019 21:34:18 +0800</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -353,6 +353,7 @@ You can add more such classes by putting them inside **theme.scss**. Here is how
 
 &lt;span class=&quot;nv&quot;&gt;keepaliveVer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'2.0.18'&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;haproxyVer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'2.0.6'&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;helmVer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'v2.14.3'&lt;/span&gt;
 
 &lt;span class=&quot;nv&quot;&gt;interface&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;netstat &lt;span class=&quot;nt&quot;&gt;-nr&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'UG|UGSc'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'^0.0.0|default'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'[0-9.]{7,15}'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $NF}'&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;ipAddr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;ip a s &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;interface&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;sed&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rn&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'s|.*inet ([0-9\.]{7,15})/[0-9]{2} brd.*$|\1|p'&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
@@ -701,8 +702,73 @@ You can add more such classes by putting them inside **theme.scss**. Here is how
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;helm&quot;&gt;helm&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Installation
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-fsSL&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+      https://get.helm.sh/helm-v2.14.3-linux-amd64.tar.gz &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+      | &lt;span class=&quot;nb&quot;&gt;sudo tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-xzv&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--strip-components&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1 &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; /usr/local/bin/
+
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;while &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; _i&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do
+      &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo chmod&lt;/span&gt; +x &lt;span class=&quot;s2&quot;&gt;&quot;/usr/local/bin/&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;_i&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt; &amp;lt; &amp;lt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo &lt;/span&gt;helm tiller&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Configration
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;helm init
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;helm init &lt;span class=&quot;nt&quot;&gt;--client-only&lt;/span&gt;
+
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl create serviceaccount &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; kube-system tiller
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl create clusterrolebinding tiller-cluster-rule &lt;span class=&quot;nt&quot;&gt;--clusterrole&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;cluster-admin &lt;span class=&quot;nt&quot;&gt;--serviceaccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;kube-system:tiller
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl patch deploy &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; kube-system tiller-deploy &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{&quot;spec&quot;:{&quot;template&quot;:{&quot;spec&quot;:{&quot;serviceAccount&quot;:&quot;tiller&quot;}}}}'&lt;/span&gt;
+
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;helm repo add jetstack https://charts.jetstack.io
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3 id=&quot;docker&quot;&gt;docker&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Installaiton
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;c&quot;&gt;# clean environment&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum remove &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; docker &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+                     docker-client &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+                     docker-client-latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+                     docker-common &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+                     docker-latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+                     docker-latest-logrotate &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+                     docker-logrotate &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+                     docker-selinux &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+                     docker-engine-selinux &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+                     docker-engine
+  &lt;span class=&quot;c&quot;&gt;# nice to have&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; groupinstall &lt;span class=&quot;s1&quot;&gt;'Development Tools'&lt;/span&gt;
+
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; yum-utils &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+                      device-mapper-persistent-data &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+                      lvm2 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+                      bash-completion&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
+
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum-config-manager &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+       &lt;span class=&quot;nt&quot;&gt;--add-repo&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+       https://download.docker.com/linux/centos/docker-ce.repo
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum-config-manager &lt;span class=&quot;nt&quot;&gt;--disable&lt;/span&gt; docker-ce-edge
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum-config-manager &lt;span class=&quot;nt&quot;&gt;--disable&lt;/span&gt; docker-ce-test
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum makecache
+
+  &lt;span class=&quot;nv&quot;&gt;$ dockerVer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum list docker-ce &lt;span class=&quot;nt&quot;&gt;--showduplicates&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep &lt;/span&gt;18&lt;span class=&quot;se&quot;&gt;\.&lt;/span&gt;09 | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $2}'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;':'&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $NF}'&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+           docker-ce-&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;dockerVer&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;.x86_64 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+           docker-ce-cli-&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;dockerVer&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;.x86_64 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+           containerd.io
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Configuraiton
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl &lt;span class=&quot;nb&quot;&gt;enable&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--now&lt;/span&gt; docker
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl status docker
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo chown&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-G&lt;/span&gt; docker &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;whomai&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 </description>
         <pubDate>Wed, 25 Sep 2019 16:47:24 +0800</pubDate>

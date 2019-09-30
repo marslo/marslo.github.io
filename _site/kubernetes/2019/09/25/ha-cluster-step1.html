@@ -269,6 +269,7 @@
 
 <span class="nv">keepaliveVer</span><span class="o">=</span><span class="s1">'2.0.18'</span>
 <span class="nv">haproxyVer</span><span class="o">=</span><span class="s1">'2.0.6'</span>
+<span class="nv">helmVer</span><span class="o">=</span><span class="s1">'v2.14.3'</span>
 
 <span class="nv">interface</span><span class="o">=</span><span class="si">$(</span>netstat <span class="nt">-nr</span> | <span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'UG|UGSc'</span> | <span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'^0.0.0|default'</span> | <span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'[0-9.]{7,15}'</span> | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">' '</span> <span class="s1">'{print $NF}'</span><span class="si">)</span>
 <span class="nv">ipAddr</span><span class="o">=</span><span class="si">$(</span>ip a s <span class="s2">"</span><span class="k">${</span><span class="nv">interface</span><span class="k">}</span><span class="s2">"</span> | <span class="nb">sed</span> <span class="nt">-rn</span> <span class="s1">'s|.*inet ([0-9\.]{7,15})/[0-9]{2} brd.*$|\1|p'</span><span class="si">)</span>
@@ -617,8 +618,73 @@
 </ul>
 
 <h3 id="helm">helm</h3>
+<ul>
+  <li>Installation
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>curl <span class="nt">-fsSL</span> <span class="se">\</span>
+      https://get.helm.sh/helm-v2.14.3-linux-amd64.tar.gz <span class="se">\</span>
+      | <span class="nb">sudo tar</span> <span class="nt">-xzv</span> <span class="nt">--strip-components</span><span class="o">=</span>1 <span class="nt">-C</span> /usr/local/bin/
+
+  <span class="nv">$ </span><span class="k">while </span><span class="nb">read</span> <span class="nt">-r</span> _i<span class="p">;</span> <span class="k">do
+      </span><span class="nb">sudo chmod</span> +x <span class="s2">"/usr/local/bin/</span><span class="k">${</span><span class="nv">_i</span><span class="k">}</span><span class="s2">"</span>
+  <span class="k">done</span> &lt; &lt;<span class="o">(</span><span class="nb">echo </span>helm tiller<span class="o">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Configration
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>helm init
+  <span class="nv">$ </span>helm init <span class="nt">--client-only</span>
+
+  <span class="nv">$ </span>kubectl create serviceaccount <span class="nt">-n</span> kube-system tiller
+  <span class="nv">$ </span>kubectl create clusterrolebinding tiller-cluster-rule <span class="nt">--clusterrole</span><span class="o">=</span>cluster-admin <span class="nt">--serviceaccount</span><span class="o">=</span>kube-system:tiller
+  <span class="nv">$ </span>kubectl patch deploy <span class="nt">-n</span> kube-system tiller-deploy <span class="nt">-p</span> <span class="s1">'{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'</span>
+
+  <span class="nv">$ </span>helm repo add jetstack https://charts.jetstack.io
+</code></pre></div>    </div>
+  </li>
+</ul>
 
 <h3 id="docker">docker</h3>
+<ul>
+  <li>Installaiton
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c"># clean environment</span>
+  <span class="nv">$ </span><span class="nb">sudo </span>yum remove <span class="nt">-y</span> docker <span class="se">\</span>
+                     docker-client <span class="se">\</span>
+                     docker-client-latest <span class="se">\</span>
+                     docker-common <span class="se">\</span>
+                     docker-latest <span class="se">\</span>
+                     docker-latest-logrotate <span class="se">\</span>
+                     docker-logrotate <span class="se">\</span>
+                     docker-selinux <span class="se">\</span>
+                     docker-engine-selinux <span class="se">\</span>
+                     docker-engine
+  <span class="c"># nice to have</span>
+  <span class="nv">$ </span><span class="nb">sudo </span>yum <span class="nt">-y</span> groupinstall <span class="s1">'Development Tools'</span>
+
+  <span class="nv">$ </span><span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> yum-utils <span class="se">\</span>
+                      device-mapper-persistent-data <span class="se">\</span>
+                      lvm2 <span class="se">\</span>
+                      bash-completion<span class="k">*</span>
+
+  <span class="nv">$ </span><span class="nb">sudo </span>yum-config-manager <span class="se">\</span>
+       <span class="nt">--add-repo</span> <span class="se">\</span>
+       https://download.docker.com/linux/centos/docker-ce.repo
+  <span class="nv">$ </span><span class="nb">sudo </span>yum-config-manager <span class="nt">--disable</span> docker-ce-edge
+  <span class="nv">$ </span><span class="nb">sudo </span>yum-config-manager <span class="nt">--disable</span> docker-ce-test
+  <span class="nv">$ </span><span class="nb">sudo </span>yum makecache
+
+  <span class="nv">$ dockerVer</span><span class="o">=</span><span class="si">$(</span><span class="nb">sudo </span>yum list docker-ce <span class="nt">--showduplicates</span> | <span class="nb">sort</span> <span class="nt">-r</span> | <span class="nb">grep </span>18<span class="se">\.</span>09 | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">' '</span> <span class="s1">'{print $2}'</span> | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">':'</span> <span class="s1">'{print $NF}'</span><span class="si">)</span>
+  <span class="nv">$ </span><span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> <span class="se">\</span>
+           docker-ce-<span class="k">${</span><span class="nv">dockerVer</span><span class="k">}</span>.x86_64 <span class="se">\</span>
+           docker-ce-cli-<span class="k">${</span><span class="nv">dockerVer</span><span class="k">}</span>.x86_64 <span class="se">\</span>
+           containerd.io
+</code></pre></div>    </div>
+  </li>
+  <li>Configuraiton
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable</span> <span class="nt">--now</span> docker
+  <span class="nv">$ </span><span class="nb">sudo </span>systemctl status docker
+  <span class="nv">$ </span><span class="nb">sudo chown</span> <span class="nt">-a</span> <span class="nt">-G</span> docker <span class="si">$(</span>whomai<span class="si">)</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
 
 
   </div>

@@ -79,6 +79,7 @@ etcdInitialCluster="${master01Name}=https://${master01IP}:2380,${master02Name}=h
 
 keepaliveVer='2.0.18'
 haproxyVer='2.0.6'
+helmVer='v2.14.3'
 
 interface=$(netstat -nr | grep -E 'UG|UGSc' | grep -E '^0.0.0|default' | grep -E '[0-9.]{7,15}' | awk -F' ' '{print $NF}')
 ipAddr=$(ip a s "${interface}" | sed -rn 's|.*inet ([0-9\.]{7,15})/[0-9]{2} brd.*$|\1|p')
@@ -424,7 +425,67 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
 <img src="{{site.url}}/assets/images/haproxy.png" style="width: 999px;" />
 
 ### helm
+- Installation
+    ```bash
+    $ curl -fsSL \
+        https://get.helm.sh/helm-v2.14.3-linux-amd64.tar.gz \
+        | sudo tar -xzv --strip-components=1 -C /usr/local/bin/
+
+    $ while read -r _i; do
+        sudo chmod +x "/usr/local/bin/${_i}"
+    done < <(echo helm tiller)
+    ```
+- Configration
+    ```bash
+    $ helm init
+    $ helm init --client-only
+
+    $ kubectl create serviceaccount -n kube-system tiller
+    $ kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+    $ kubectl patch deploy -n kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
+
+    $ helm repo add jetstack https://charts.jetstack.io
+    ```
 
 ### docker
+- Installaiton
+    ```bash
+    # clean environment
+    $ sudo yum remove -y docker \
+                       docker-client \
+                       docker-client-latest \
+                       docker-common \
+                       docker-latest \
+                       docker-latest-logrotate \
+                       docker-logrotate \
+                       docker-selinux \
+                       docker-engine-selinux \
+                       docker-engine
+    # nice to have
+    $ sudo yum -y groupinstall 'Development Tools'
 
+    $ sudo yum install -y yum-utils \
+                        device-mapper-persistent-data \
+                        lvm2 \
+                        bash-completion*
+
+    $ sudo yum-config-manager \
+         --add-repo \
+         https://download.docker.com/linux/centos/docker-ce.repo
+    $ sudo yum-config-manager --disable docker-ce-edge
+    $ sudo yum-config-manager --disable docker-ce-test
+    $ sudo yum makecache
+
+    $ dockerVer=$(sudo yum list docker-ce --showduplicates | sort -r | grep 18\.09 | awk -F' ' '{print $2}' | awk -F':' '{print $NF}')
+    $ sudo yum install -y \
+             docker-ce-${dockerVer}.x86_64 \
+             docker-ce-cli-${dockerVer}.x86_64 \
+             containerd.io
+    ```
+- Configuraiton
+    ```bash
+    $ sudo systemctl enable --now docker
+    $ sudo systemctl status docker
+    $ sudo chown -a -G docker $(whomai)
+    ```
 
