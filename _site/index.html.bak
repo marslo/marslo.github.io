@@ -90,7 +90,7 @@
 
         
         
-        <li><a href="/aboutme/">about me</a></li>
+        <li><a href="/tags/">tags</a></li>
 
         
 
@@ -143,6 +143,13 @@
       2019-09-30
       </time>
       &raquo; <a href="/drafts/2019/09/30/test.html">Test</a><br />
+      
+      
+      
+      <time datetime="2019-09-29">
+      2019-09-29
+      </time>
+      &raquo; <a href="/aboutme/">About me</a><br />
       
       
       

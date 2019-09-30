@@ -1,11 +1,12 @@
-
+hr {
+  border-top: 1px solid #093750 !important;
+}
 img{
   border-radius: 10px;
   /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
   display: block;
   margin: auto;
 }
-
 div.mwarn {
   background-color: #4d1515;
   border-color: #691c1c;
@@ -65,9 +66,36 @@ table.inner-borders {
   }
 }
 
+.post-title-main {
+  font-size: 48px !important;
+}
+
 //********************************************************
 //                    Post
 //********************************************************
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.post-content h1 {
+  font-weight: 100 !important;
+}
+
+.post-meta {
+  font-size: $small-font-size;
+  color: $grey-color;
+}
+
+.post-link {
+  display: block;
+  font-size: 36px;//42px;
+}
+
 /* h2.post-title {
   padding-top: 10px;
   text-align: left;

@@ -90,7 +90,7 @@
 
         
         
-        <li><a href="/aboutme/">about me</a></li>
+        <li><a href="/tags/">tags</a></li>
 
         
 
@@ -151,26 +151,108 @@
     </header>
 
     <article class="post-content" itemprop="articleBody">
+      <div class="alert alert-success" role="alert">
+<i class="fa fa-check-square-o"></i>
+<b>Tip: </b>
+</div>
+
+<div class="alert alert-warning" role="alert">
+<i class="fa fa-warning"></i>
+<b>Important: </b>
+</div>
+
+
       <!--
-        
-  Gather your collections3.7.0
+      Tip: Important: Note: lb4_sidebar.yml is sourced from loopback-next **Warning:** remember to do bookeping INFO: etcd need to be setup in all masters! h1. Below are the examples of the default table styling. ## Simple table | First Header | Second Header | | ------------ | ------------- | | Content from cell 1 | Content from cell 2 | | Content in the first column | Content in the second column | &gt;Markdown {:.filename} | First Header | Second Header | | ------------ | ------------- | | Content from...
+      -->
+    </article> <hr />
+  
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="/aboutme/">about me</a>
+      </h1>
+      <meta itemprop="keywords" content="" />
+      <p class="post-meta">
+      Posted in 
+
+      
+      <time itemprop="datePublished" datetime="2019-09-29">
+      On Sep 29, 2019
+      </time>
+      </p>
+    </header>
+
+    <article class="post-content" itemprop="articleBody">
+      <div class="manual manual-title">
+</div>
+
+<div class="intro">
+  <br />
+  <p>
+    Hey !
+    <br />
+    <br /> This is Marslo
+    <br /> I'm a DevOps engineer.
+    <br />
+    <br />
+    <a href="http://linkedin.com/in/marslo-jiao-3a286399"><i class="fa fa-linkedin"></i></a> My Linkedin <br />
+    <a href="http://weibo.com/woainvzu"><i class="fa fa-weibo"></i></a> My Weibo <br />
+    <a href="https://imarslo.gitbook.io/mynotes/"><i class="fa fa-book"></i></a> My Gitbook
+  </p>
+
+</div>
+
+<div class="man-title">
+  <center>GitHub Repository
+    <h2><a href="http://github.com/Marslo"><i class="fa fa-github"></i></a></h2>
+  </center>
+
+</div>
+
+      <!--
+      
+
+
+
+  
+  
+    Hey !
+    
+     This is Marslo
+     I'm a DevOps engineer.
+    
+    
+     My Linkedin 
+     My Weibo 
+     My Gitbook
+  
+
+
+
+
+  GitHub Repository
+    
+  
 
 
 
       -->
-      Gather your collections3.7.0 You can optionally specify a directory to store all your collections in the same place with collections_dir: my_collections. Then Jekyll will look in my_collections/_books for the books collection, and in my_collections/_recipes for the recipes collection. Be sure to move drafts and posts into custom collections directory If you specify a directory to store all your collections in the same place with collections_dir: my_collections, then you will need to move your _drafts and _posts directory to my_collections/_drafts and my_collections/_posts. Note that, the name of your collections...
     </article> <hr />
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="/kubernetes/2019/09/25/ha-cluster-step1.html">1.15.3 HA kubernetes Cluster Playbook (basic environment)</a>
       </h1>
-      <meta itemprop="keywords" content="" />
+      <meta itemprop="keywords" content="kuberentes" />
       <p class="post-meta">
       Posted in 
         <a href="/categories/#kubernetes">kubernetes</a>
       
 
+      
+        and tagged 
+        <a href="/tags/#kuberentes" title="kuberentes">kuberentes</a>
+      
       
       <time itemprop="datePublished" datetime="2019-09-25">
       On Sep 25, 2019
@@ -179,12 +261,15 @@
     </header>
 
     <article class="post-content" itemprop="articleBody">
-      <!--
-        Extended etcd Topology
-Kubernetes HA cluster with external etcd
+      <h2 id="extended-etcd-topology">Extended etcd Topology</h2>
+<h3 id="kubernetes-ha-cluster-with-external-etcd"><a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology">Kubernetes HA cluster with external etcd</a></h3>
 
-      -->
+<p><img src="http://localhost:4000/assets/images/external-etcd-topology.png" style="width: 666px;" /></p>
+
+
+      <!--
       Extended etcd Topology Kubernetes HA cluster with external etcd Server Matrix Environment List Hostname IP Address etcd cfssl &amp; cfssljson keepalived haproxy master01 192.168.100.200 master01 (etcd-0) ✔ ✔ ✔ master02 192.168.100.201 master02 (etcd-1) ✔ ✔ ✔ master03 192.168.100.202 master03 (etcd-2) ✔ ✔ ✔ node01 192.168.100.203 ✗ ✗ ✗ ✗ node02 192.168.100.204 ✗ ✗ ✗ ✗             virtual IP 192.168.100.250         /etc/hosts Add for all servers 192.168.100.200 master01 192.168.100.201 master02 192.168.100.202 master03 192.168.100.203 worker01 192.168.100.204 worker02 192.168.100.250 jenkins.marslo.com 192.168.100.250 prometheus.marslo.com 192.168.100.250...
+      -->
     </article> <hr />
   
     <header class="post-header">
@@ -205,14 +290,14 @@ Kubernetes HA cluster with external etcd
     </header>
 
     <article class="post-content" itemprop="articleBody">
-      <!--
-        Awesome Marslo! 
-This is my first post.
+      <p>Awesome Marslo! <br />
+This is my first post.</p>
 
-      -->
+      <!--
       Awesome Marslo! 
 This is my first post.
 
+      -->
     </article> <hr />
   
 

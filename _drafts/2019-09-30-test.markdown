@@ -3,30 +3,9 @@ layout: post
 title:  test
 date:   2019-09-30 16:47:24 +0800
 categories: ["drafts"]
+excerpt_separator: <!--more-->
 ---
 
-
-<div class="note">
-  <h5>Gather your collections<span class="version-badge" title="This feature is available starting version 3.7.0">3.7.0</span>
-</h5>
-
-  <p>You can optionally specify a directory to store all your collections in the same place with <code>collections_dir: my_collections</code>.</p>
-
-  <p>Then Jekyll will look in <code>my_collections/_books</code> for the <code>books</code> collection, and
-  in <code>my_collections/_recipes</code> for the <code>recipes</code> collection.</p>
-</div>
-<br>
-<br>
-<br>
-
-<div class="note warning">
-  <h5>Be sure to move drafts and posts into custom collections directory</h5>
-
-  <p>If you specify a directory to store all your collections in the same place with <code>collections_dir: my_collections</code>, then you will need to move your <code>_drafts</code> and <code>_posts</code> directory to <code>my_collections/_drafts</code> and <code>my_collections/_posts</code>. Note that, the name of your collections directory cannot start with an underscore (`_`).</p>
-</div>
-<br>
-<br>
-<br>
 
 
 
@@ -40,6 +19,7 @@ categories: ["drafts"]
 <b>Important: </b>
 </div>
 
+<!--more-->
 
 <div class="alert alert-info" role="alert">
   <p><i class="fa fa-info-circle"></i>

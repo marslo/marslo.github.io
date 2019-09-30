@@ -3,16 +3,19 @@ layout: post
 title:  1.15.3 HA kubernetes Cluster Playbook (basic environment)
 date:   2019-09-25 16:47:24 +0800
 categories: ["kubernetes"]
+tags: ["kuberentes"]
+excerpt_separator: <!--more-->
 ---
 
-# Extended etcd Topology
-## [Kubernetes HA cluster with external etcd](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology)
+## Extended etcd Topology
+### [Kubernetes HA cluster with external etcd](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology)
 
 <img src="{{site.url}}/assets/images/external-etcd-topology.png" style="width: 666px;" />
 
-## Server Matrix
+<!--more-->
+### Server Matrix
 
-### Environment List
+#### Environment List
 
 | Hostname   | IP Address      | etcd              | cfssl & cfssljson | keepalived | haproxy  |
 |------------|-----------------|-------------------|-------------------|------------|----------|
@@ -26,7 +29,8 @@ categories: ["kubernetes"]
 |------------|-----------------|-------------------|-------------------|------------|----------|
 {:.inner-borders}
 
-### `/etc/hosts`
+
+#### `/etc/hosts`
 
 Add for all servers
 
@@ -43,7 +47,7 @@ Add for all servers
 192.168.100.250     dashboard.marslo.com
 ```
 
-### variables
+#### variables
 <div class="alert alert-success" role="alert">
 <i class="fa fa-check-square-o"></i>
 <b>Tip: </b>execute the variables in all console (masters) at the very begining, make sure all servers are using the exact same value (and avoid manual input)
@@ -81,8 +85,8 @@ ipAddr=$(ip a s "${interface}" | sed -rn 's|.*inet ([0-9\.]{7,15})/[0-9]{2} brd.
 peerName=$(hostname)
 ```
 
-# Tools Setup
-## cfssl & cfssljson
+## Tools Setup
+### cfssl & cfssljson
 <div class="alert alert-success" role="alert">
 <i class="fa fa-check-square-o"></i>
 <b>Tip: </b> cfssl and cfssljson need to be setup in all masters!
@@ -94,7 +98,7 @@ $ sudo bash -c "curl -o /usr/local/bin/cfssljson ${cfsslDownloadUrl}/cfssljson_l
 $ sudo chmod +x /usr/local/bin/cfssl*
 ```
 
-## etcd
+### etcd
 <div class="alert alert-success" role="alert">
 <i class="fa fa-check-square-o"></i>
 <b>Tip: </b> etcd need to be setup in all masters!
@@ -105,7 +109,7 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
     | sudo tar -xzv --strip-components=1 -C /usr/local/bin/
 ```
 
-## keepalived
+### keepalived
 
 - Installation
     ```bash
@@ -242,7 +246,7 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
     <b>Tip: </b> One of the master will be setup to virutal dual networking card and show 2 ip addresses. The one without Broadcast is the virutal IP.
     </div>
 
-## Haproxy 2.0.6
+### Haproxy 2.0.6
 - Install haproxy from source code
     ```bash
    $ curl -fsSL http://www.haproxy.org/download/$(echo ${haproxyVer%\.*})/src/haproxy-${haproxyVer}.tar.gz \
@@ -419,8 +423,8 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
 - Result
 <img src="{{site.url}}/assets/images/haproxy.png" style="width: 999px;" />
 
-## helm
+### helm
 
-## docker
+### docker
 
 

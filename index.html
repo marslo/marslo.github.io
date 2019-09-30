@@ -36,10 +36,10 @@ layout: default
     </header>
 
     <article class="post-content" itemprop="articleBody">
+      {{ post.excerpt }}
       <!--
-        {{ post.excerpt | strip_html }}
-      -->
       {{ post.content | strip_html | truncatewords: 88 }}
+      -->
     </article> <hr />
   {% endfor %}
 

@@ -32,6 +32,8 @@
 
 
   
+  <meta content="kuberentes" property="article:tag">
+  
 
   <title>1.15.3 HA kubernetes Cluster Playbook (basic environment)</title>
   <meta name="description" content="Extended etcd TopologyKubernetes HA cluster with external etcd">
@@ -99,7 +101,7 @@
 
         
         
-        <li><a href="/aboutme/">about me</a></li>
+        <li><a href="/tags/">tags</a></li>
 
         
 
@@ -139,14 +141,15 @@
 </div>
 
   <div class="post-content container" itemprop="articleBody">
-    <h1 id="extended-etcd-topology">Extended etcd Topology</h1>
-<h2 id="kubernetes-ha-cluster-with-external-etcd"><a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology">Kubernetes HA cluster with external etcd</a></h2>
+    <h2 id="extended-etcd-topology">Extended etcd Topology</h2>
+<h3 id="kubernetes-ha-cluster-with-external-etcd"><a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology">Kubernetes HA cluster with external etcd</a></h3>
 
 <p><img src="http://localhost:4000/assets/images/external-etcd-topology.png" style="width: 666px;" /></p>
 
-<h2 id="server-matrix">Server Matrix</h2>
+<!--more-->
+<h3 id="server-matrix">Server Matrix</h3>
 
-<h3 id="environment-list">Environment List</h3>
+<h4 id="environment-list">Environment List</h4>
 
 <table class="inner-borders">
   <thead>
@@ -219,7 +222,7 @@
   </tbody>
 </table>
 
-<h3 id="etchosts"><code class="highlighter-rouge">/etc/hosts</code></h3>
+<h4 id="etchosts"><code class="highlighter-rouge">/etc/hosts</code></h4>
 
 <p>Add for all servers</p>
 
@@ -235,7 +238,7 @@
 192.168.100.250     dashboard.marslo.com
 </code></pre></div></div>
 
-<h3 id="variables">variables</h3>
+<h4 id="variables">variables</h4>
 <div class="alert alert-success" role="alert">
 <i class="fa fa-check-square-o"></i>
 <b>Tip: </b>execute the variables in all console (masters) at the very begining, make sure all servers are using the exact same value (and avoid manual input)
@@ -272,8 +275,8 @@
 <span class="nv">peerName</span><span class="o">=</span><span class="si">$(</span><span class="nb">hostname</span><span class="si">)</span>
 </code></pre></div></div>
 
-<h1 id="tools-setup">Tools Setup</h1>
-<h2 id="cfssl--cfssljson">cfssl &amp; cfssljson</h2>
+<h2 id="tools-setup">Tools Setup</h2>
+<h3 id="cfssl--cfssljson">cfssl &amp; cfssljson</h3>
 <div class="alert alert-success" role="alert">
 <i class="fa fa-check-square-o"></i>
 <b>Tip: </b> cfssl and cfssljson need to be setup in all masters!
@@ -284,7 +287,7 @@
 <span class="nv">$ </span><span class="nb">sudo chmod</span> +x /usr/local/bin/cfssl<span class="k">*</span>
 </code></pre></div></div>
 
-<h2 id="etcd">etcd</h2>
+<h3 id="etcd">etcd</h3>
 <div class="alert alert-success" role="alert">
 <i class="fa fa-check-square-o"></i>
 <b>Tip: </b> etcd need to be setup in all masters!
@@ -294,7 +297,7 @@
     | <span class="nb">sudo tar</span> <span class="nt">-xzv</span> <span class="nt">--strip-components</span><span class="o">=</span>1 <span class="nt">-C</span> /usr/local/bin/
 </code></pre></div></div>
 
-<h2 id="keepalived">keepalived</h2>
+<h3 id="keepalived">keepalived</h3>
 
 <ul>
   <li>Installation
@@ -437,7 +440,7 @@
   </li>
 </ul>
 
-<h2 id="haproxy-206">Haproxy 2.0.6</h2>
+<h3 id="haproxy-206">Haproxy 2.0.6</h3>
 <ul>
   <li>Install haproxy from source code
     <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>curl <span class="nt">-fsSL</span> http://www.haproxy.org/download/<span class="si">$(</span><span class="nb">echo</span> <span class="k">${</span><span class="nv">haproxyVer</span><span class="p">%\.*</span><span class="k">}</span><span class="si">)</span>/src/haproxy-<span class="k">${</span><span class="nv">haproxyVer</span><span class="k">}</span>.tar.gz <span class="se">\</span>
@@ -613,9 +616,9 @@
 <img src="http://localhost:4000/assets/images/haproxy.png" style="width: 999px;" /></li>
 </ul>
 
-<h2 id="helm">helm</h2>
+<h3 id="helm">helm</h3>
 
-<h2 id="docker">docker</h2>
+<h3 id="docker">docker</h3>
 
 
   </div>
