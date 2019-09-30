@@ -64,7 +64,11 @@ Add for all servers
 ```
 
 ### variables
+<div class="alert alert-warning">
+<b>INFO:</b> execute the variables in all console (masters) at the very begining, make sure all servers are using the exact same value (and avoid manual input)
+</div>
 ```bash
+## change if necessary
 # hostname
 master01Name='master01'
 master02Name='master02'
@@ -97,6 +101,9 @@ peerName=$(hostname)
 
 # Tools Setup
 ## cfssl & cfssljson
+<div class="alert alert-warning">
+<b>INFO:</b> cfssl and cfssljson need to be setup in all masters!
+</div>
 
 ```bash
 $ sudo bash -c "curl -o /usr/local/bin/cfssl ${cfsslDownloadUrl}/cfssl_linux-amd64"
@@ -105,13 +112,16 @@ $ sudo chmod +x /usr/local/bin/cfssl*
 ```
 
 ## etcd
+<div class="alert alert-warning">
+<b>INFO:</b> etcd need to be setup in all masters!
+</div>
 
 ```bash
 $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
     | sudo tar -xzv --strip-components=1 -C /usr/local/bin/
 ```
 
-## keepalived 
+## keepalived
 
 - Installation
     ```bash
@@ -127,6 +137,7 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
     $ sudo make install
     $ sudo cp keepalived/keepalived.service /etc/systemd/system/
     $ popd
+    $ rm -rf ~/temp
     ```
 - Configuration
     - with haproxy
@@ -185,7 +196,7 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
           state MASTER
           interface ${interface}
           virtual_router_id 51
-          priority 101
+          priority 50
           authentication {
             auth_type PASS
             auth_pass 4be37dc3b4c90194d1600c483e10ad1d
@@ -221,13 +232,43 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
         EOF
         ```
 
+    - start keepalived serice
+        ```bash
+        $ sudo systemctl enable keepalived.service
+        $ sudo systemctl start keepalived.service
+
+        $ sudo systemctl is-enabled keepalived.service
+        enabled
+        $ sudo systemctl is-active keepalived.service
+        active
+        ```
+
+    - verify
+
+        <div class="alert alert-warning">
+        <b>INFO:</b> One of the master will be setup to virutal dual networking card and show 2 ip addresses. The one without Broadcast is the virutal IP.
+        </div>
+
+        ```bash
+        $ ip a s ${interface}
+        2: eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+            link/ether 00:50:50:85:96:64 brd ff:ff:ff:ff:ff:ff
+            inet 192.168.100.200/24 brd 192.168.100.255 scope global noprefixroute eno1
+               valid_lft forever preferred_lft forever
+            inet 192.168.100.250/32 scope global eno1
+               valid_lft forever preferred_lft forever
+            inet6 fe80::250:fe85:86ff:9624/64 scope link
+               valid_lft forever preferred_lft forever
+        ```
+
 ## haproxy 2.0.6
 - install haproxy from source code
-
     ```bash
     $ curl -fs -O http://www.haproxy.org/download/$(echo ${haproxyVer%\.*})/src/haproxy-${haproxyVer}.tar.gz
+    $
     ```
 
 ## helm
 
 ## docker
+

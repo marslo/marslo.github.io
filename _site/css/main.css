@@ -62,6 +62,10 @@ code { background-color: #083750 !important; color: #c1ad1c !important; border: 
 
 img { border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); display: block; margin: auto; }
 
+div.mwarn { background-color: #4d1515; border-color: #691c1c; border-left: 5px solid #691c1c; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19); border-radius: 5px; padding: 0.5em; }
+
+div.minfo { background-color: #ff9800; border-color: #f1a32f; border-left: 5px solid #f1a32f; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19); border-radius: 5px; padding: 0.5em; }
+
 /** Syntax highlighting styles */
 .highlight { background: #083750; /* .s     { color: #b58900 } // Literal.String */ }
 

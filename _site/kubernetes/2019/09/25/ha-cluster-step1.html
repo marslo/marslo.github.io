@@ -204,7 +204,11 @@
 </code></pre></div></div>
 
 <h3 id="variables">variables</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># hostname</span>
+<div class="alert alert-warning">
+<b>INFO:</b> execute the variables in all console (masters) at the very begining, make sure all servers are using the exact same value (and avoid manual input)
+</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">## change if necessary</span>
+<span class="c"># hostname</span>
 <span class="nv">master01Name</span><span class="o">=</span><span class="s1">'master01'</span>
 <span class="nv">master02Name</span><span class="o">=</span><span class="s1">'master02'</span>
 <span class="nv">master03Name</span><span class="o">=</span><span class="s1">'master03'</span>
@@ -236,6 +240,9 @@
 
 <h1 id="tools-setup">Tools Setup</h1>
 <h2 id="cfssl--cfssljson">cfssl &amp; cfssljson</h2>
+<div class="alert alert-warning">
+<b>INFO:</b> cfssl and cfssljson need to be setup in all masters!
+</div>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>bash <span class="nt">-c</span> <span class="s2">"curl -o /usr/local/bin/cfssl </span><span class="k">${</span><span class="nv">cfsslDownloadUrl</span><span class="k">}</span><span class="s2">/cfssl_linux-amd64"</span>
 <span class="nv">$ </span><span class="nb">sudo </span>bash <span class="nt">-c</span> <span class="s2">"curl -o /usr/local/bin/cfssljson </span><span class="k">${</span><span class="nv">cfsslDownloadUrl</span><span class="k">}</span><span class="s2">/cfssljson_linux-amd64"</span>
@@ -243,6 +250,9 @@
 </code></pre></div></div>
 
 <h2 id="etcd">etcd</h2>
+<div class="alert alert-warning">
+<b>INFO:</b> etcd need to be setup in all masters!
+</div>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-sSL</span> <span class="k">${</span><span class="nv">etcdDownloadUrl</span><span class="k">}</span>/<span class="k">${</span><span class="nv">etcdVer</span><span class="k">}</span>/etcd-<span class="k">${</span><span class="nv">etcdVer</span><span class="k">}</span><span class="nt">-linux-amd64</span>.tar.gz <span class="se">\</span>
     | <span class="nb">sudo tar</span> <span class="nt">-xzv</span> <span class="nt">--strip-components</span><span class="o">=</span>1 <span class="nt">-C</span> /usr/local/bin/
@@ -264,6 +274,7 @@
   <span class="nv">$ </span><span class="nb">sudo </span>make <span class="nb">install</span>
   <span class="nv">$ </span><span class="nb">sudo cp </span>keepalived/keepalived.service /etc/systemd/system/
   <span class="nv">$ </span><span class="nb">popd</span>
+  <span class="nv">$ </span><span class="nb">rm</span> <span class="nt">-rf</span> ~/temp
 </code></pre></div>    </div>
   </li>
   <li>Configuration
@@ -325,7 +336,7 @@
     state MASTER
     interface </span><span class="k">${</span><span class="nv">interface</span><span class="k">}</span><span class="sh">
     virtual_router_id 51
-    priority 101
+    priority 50
     authentication {
       auth_type PASS
       auth_pass 4be37dc3b4c90194d1600c483e10ad1d
@@ -361,16 +372,43 @@
 </span><span class="no">  EOF
 </span></code></pre></div>        </div>
       </li>
+      <li>start keepalived serice
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>keepalived.service
+  <span class="nv">$ </span><span class="nb">sudo </span>systemctl start keepalived.service
+
+  <span class="nv">$ </span><span class="nb">sudo </span>systemctl is-enabled keepalived.service
+  enabled
+  <span class="nv">$ </span><span class="nb">sudo </span>systemctl is-active keepalived.service
+  active
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>verify</p>
+
+        <div class="alert alert-warning">
+  <b>INFO:</b> One of the master will be setup to virutal dual networking card and show 2 ip addresses. The one without Broadcast is the virutal IP.
+  </div>
+
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>ip a s <span class="k">${</span><span class="nv">interface</span><span class="k">}</span>
+  2: eno1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000
+      <span class="nb">link</span>/ether 00:50:50:85:96:64 brd ff:ff:ff:ff:ff:ff
+      inet 192.168.100.200/24 brd 192.168.100.255 scope global noprefixroute eno1
+         valid_lft forever preferred_lft forever
+      inet 192.168.100.250/32 scope global eno1
+         valid_lft forever preferred_lft forever
+      inet6 fe80::250:fe85:86ff:9624/64 scope <span class="nb">link
+         </span>valid_lft forever preferred_lft forever
+</code></pre></div>        </div>
+      </li>
     </ul>
   </li>
 </ul>
 
 <h2 id="haproxy-206">haproxy 2.0.6</h2>
 <ul>
-  <li>
-    <p>install haproxy from source code</p>
-
+  <li>install haproxy from source code
     <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>curl <span class="nt">-fs</span> <span class="nt">-O</span> http://www.haproxy.org/download/<span class="si">$(</span><span class="nb">echo</span> <span class="k">${</span><span class="nv">haproxyVer</span><span class="p">%\.*</span><span class="k">}</span><span class="si">)</span>/src/haproxy-<span class="k">${</span><span class="nv">haproxyVer</span><span class="k">}</span>.tar.gz
+  <span class="err">$</span>
 </code></pre></div>    </div>
   </li>
 </ul>
@@ -378,6 +416,7 @@
 <h2 id="helm">helm</h2>
 
 <h2 id="docker">docker</h2>
+
 
   </div>
 </article>
