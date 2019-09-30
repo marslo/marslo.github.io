@@ -15,11 +15,11 @@ categories: ["kubernetes"]
     - [Environment List](#environment-list)
     - [`/etc/hosts`](#etchosts)
     - [variables](#variables)
-- [Tools Installation](#tools-installation)
+- [Tools Setup](#tools-setup)
   - [cfssl & cfssljson](#cfssl--cfssljson)
   - [etcd](#etcd)
   - [keepalived](#keepalived)
-  - [haproxy](#haproxy)
+  - [haproxy 2.0.6](#haproxy-206)
   - [helm](#helm)
   - [docker](#docker)
 
@@ -65,37 +65,168 @@ Add for all servers
 
 ### variables
 ```bash
-master01Name="master01"
-master02Name="master02"
-master03Name="master03"
-master01IP="192.168.100.200"
-master01IP="192.168.100.201"
-master01IP="192.168.100.202"
-virtualIP="192.168.100.250"
+# hostname
+master01Name='master01'
+master02Name='master02'
+master03Name='master03'
+
+# ipaddress
+master01IP='192.168.100.200'
+master01IP='192.168.100.201'
+master01IP='192.168.100.202'
+virtualIP='192.168.100.250'
 
 leadIP="${master01IP}"
 leadName="${master01Name}"
 
-k8sVer="v1.15.3"
-etcdVer='v3.3.15'
-keepaliveVer='2.0.18'
-haproxyVer="2.0.6"
+k8sVer='v1.15.3'
+cfsslDownloadUrl='https://pkg.cfssl.org/R1.2'
 
-etcdPath='/etc/etcd/ssl
+etcdVer='v3.3.15'
+etcdDownloadUrl='https://github.com/etcd-io/etcd/releases/download'
+etcdSSLPath='/etc/etcd/ssl'
+etcdInitialCluster="${master01Name}=https://${master01IP}:2380,${master02Name}=https://${master02IP}:2380,${master03Name}=https://${master03IP}:2380"
+
+keepaliveVer='2.0.18'
+haproxyVer='2.0.6'
 
 interface=$(netstat -nr | grep -E 'UG|UGSc' | grep -E '^0.0.0|default' | grep -E '[0-9.]{7,15}' | awk -F' ' '{print $NF}')
 ipAddr=$(ip a s "${interface}" | sed -rn 's|.*inet ([0-9\.]{7,15})/[0-9]{2} brd.*$|\1|p')
 peerName=$(hostname)
 ```
 
-# Tools Installation
+# Tools Setup
 ## cfssl & cfssljson
+
+```bash
+$ sudo bash -c "curl -o /usr/local/bin/cfssl ${cfsslDownloadUrl}/cfssl_linux-amd64"
+$ sudo bash -c "curl -o /usr/local/bin/cfssljson ${cfsslDownloadUrl}/cfssljson_linux-amd64"
+$ sudo chmod +x /usr/local/bin/cfssl*
+```
 
 ## etcd
 
-## keepalived
+```bash
+$ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
+    | sudo tar -xzv --strip-components=1 -C /usr/local/bin/
+```
 
-## haproxy
+## keepalived 
+
+- Installation
+    ```bash
+    $ mkdir -p ~/temp
+    $ sudo mkdir -p /etc/keepalived/
+
+    $ curl -fsSL ${keepaliveDownloadUrl}/keepalived-${keepaliveVer}.tar.gz \
+       | tar xzf - -C ~/temp
+
+    $ pushd .
+    $ cd ~/temp/keepalived-${keepaliveVer}
+    $ ./configure && make
+    $ sudo make install
+    $ sudo cp keepalived/keepalived.service /etc/systemd/system/
+    $ popd
+    ```
+- Configuration
+    - with haproxy
+
+        ```bash
+        $ sudo bash -c 'cat > /etc/keepalived/keepalived.conf' << EOF
+        ! Configuration File for keepalived
+
+        global_defs {
+          router_id LVS_DEVEL
+        }
+
+        vrrp_script check_haproxy {
+          script "killall -0 haproxy"
+          interval 3
+          weight -2
+          fall 10
+          rise 2
+        }
+
+        vrrp_instance VI_1 {
+          state MASTER
+          interface ${interface}
+          virtual_router_id 51
+          priority 50
+          advert_int 1
+          authentication {
+            auth_type PASS
+            auth_pass 35f18af7190d51c9f7f78f37300a0cbd
+          }
+          virtual_ipaddress {
+            ${virtualIP}
+          }
+          track_script {
+            check_haproxy
+          }
+        }
+        EOF
+        ```
+    - without haproxy
+
+        ```bash
+        $ sudo bash -c 'cat > /etc/keepalived/keepalived.conf' << EOF
+        ! Configuration File for keepalived
+        global_defs {
+          router_id LVS_DEVEL
+        }
+        vrrp_script check_apiserver {
+          script "/etc/keepalived/check_apiserver.sh"
+          interval 3
+          weight -2
+          fall 10
+          rise 2
+        }
+        vrrp_instance VI_1 {
+          state MASTER
+          interface ${interface}
+          virtual_router_id 51
+          priority 101
+          authentication {
+            auth_type PASS
+            auth_pass 4be37dc3b4c90194d1600c483e10ad1d
+          }
+          virtual_ipaddress {
+            ${virtualIP}
+          }
+          track_script {
+            check_apiserver
+          }
+        }
+        EOF
+
+        $ sudo bash -c 'cat > /etc/keepalived/check_apiserver.sh' << EOF
+        #!/bin/sh
+        errorExit() {
+          echo "*** \$*" 1>&2
+          exit 1
+        }
+        curl --silent                           \
+             --max-time 2                       \
+             --insecure https://localhost:6443/ \
+             -o /dev/null                       \
+            || errorExit 'Error GET https://localhost:6443/'
+
+        if ip addr | grep -q ${virtualIpAddr}; then
+            curl --silent                                  \
+                 --max-time 2                              \
+                 --insecure https://${virtualIpAddr}:6443/ \
+                 -o /dev/null                              \
+                 || errorExit "Error GET https://${virtualIpAddr}:6443/"
+        fi
+        EOF
+        ```
+
+## haproxy 2.0.6
+- install haproxy from source code
+
+    ```bash
+    $ curl -fs -O http://www.haproxy.org/download/$(echo ${haproxyVer%\.*})/src/haproxy-${haproxyVer}.tar.gz
+    ```
 
 ## helm
 

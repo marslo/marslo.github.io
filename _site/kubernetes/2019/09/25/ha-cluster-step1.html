@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="I, Marslo" property="og:site_name">
+
+  <meta content="1.15.3 HA kubernetes Cluster Playbook (basic environment)" property="og:title">
+
+
+  <meta content="article" property="og:type">
+
+
+  <meta content="<h2>Hello, there!</h2><h1>Welcome to my world!</h1>" property="og:description">
+
+
+  <meta content="http://localhost:4000/kubernetes/2019/09/25/ha-cluster-step1.html" property="og:url">
+
+
+
+  <meta content="2019-09-25T16:47:24+08:00" property="article:published_time">
+  <meta content="http://localhost:4000/about/" property="article:author">
+
+
+  <meta property="og:image" content="">
+
+
+  
+  <meta content="kubernetes" property="article:section">
+  
+
+
+  
+
+  <title>1.15.3 HA kubernetes Cluster Playbook (basic environment)</title>
+  <meta name="description" content="Table of Contents  generated with DocToc">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/css/main.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+  <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Fira+Mono' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,200,300,500,600,700,900' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Gentium+Basic:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Alegreya:400,400italic,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,400italic,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,300,500,700' rel='stylesheet' type='text/css'>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-hQpvDQiCJaD2H465dQfA717v7lu5qHWtDbWNPvaTJ0ID5xnPUlVXnKzq7b8YUkbN" crossorigin="anonymous">
+  <link rel="canonical" href="http://localhost:4000/kubernetes/2019/09/25/ha-cluster-step1.html">
+  <link rel="alternate" type="application/rss+xml" title="I, Marslo" href="http://localhost:4000/feed.xml">
+</head>
+
+  <body>
+<!--
+<a href="https://github.com/Marslo/marslo.github.io"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 9999;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="view me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+-->
+
+<section>
+<nav class="navbar navbar-default navbar-fixed-top">
+
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">I, Marslo</a>
+    </div>
+
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        
+        
+        <li><a href="/posts/">posts</a></li>
+
+        
+
+        
+        
+        <li><a href="/categories/">categories</a></li>
+
+        
+
+        
+        
+        <li><a href="/projects/">projects</a></li>
+
+        
+
+        
+        
+        <li><a href="/aboutme/">about me</a></li>
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+
+
+      </ul>
+
+    <!--  <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Know More!</a></li>
+
+      </ul>-->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+</section>
+
+<section>
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="post-title-main" itemprop="name headline">1.15.3 HA kubernetes Cluster Playbook (basic environment)</h1>
+      <p class="post-meta"><time datetime="2019-09-25T16:47:24+08:00" itemprop="datePublished">Sep 25, 2019</time></p>
+    </div>
+</div>
+
+  <div class="post-content container" itemprop="articleBody">
+    <!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<p><strong>Table of Contents</strong>  <em>generated with <a href="https://github.com/thlorenz/doctoc">DocToc</a></em></p>
+
+<ul>
+  <li><a href="#extended-etcd-topology">Extended etcd Topology</a>
+    <ul>
+      <li><a href="#kubernetes-ha-cluster-with-external-etcd">Kubernetes HA cluster with external etcd</a></li>
+      <li><a href="#server-matrix">Server Matrix</a>
+        <ul>
+          <li><a href="#environment-list">Environment List</a></li>
+          <li><a href="#etchosts"><code class="highlighter-rouge">/etc/hosts</code></a></li>
+          <li><a href="#variables">variables</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#tools-setup">Tools Setup</a>
+    <ul>
+      <li><a href="#cfssl--cfssljson">cfssl &amp; cfssljson</a></li>
+      <li><a href="#etcd">etcd</a></li>
+      <li><a href="#keepalived">keepalived</a></li>
+      <li><a href="#haproxy-206">haproxy 2.0.6</a></li>
+      <li><a href="#helm">helm</a></li>
+      <li><a href="#docker">docker</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+<h1 id="extended-etcd-topology">Extended etcd Topology</h1>
+<h2 id="kubernetes-ha-cluster-with-external-etcd"><a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology">Kubernetes HA cluster with external etcd</a></h2>
+
+<p><img src="http://localhost:4000/images/external-etcd-topology.png" style="width: 666px;" /></p>
+
+<h2 id="server-matrix">Server Matrix</h2>
+
+<h3 id="environment-list">Environment List</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| Hostname   | IP Address      | etcd              |
+|------------|-----------------|-------------------|
+| master01   | 192.168.100.200 | master01 <span class="o">(</span>etcd-0<span class="o">)</span> |
+| master02   | 192.168.100.201 | master02 <span class="o">(</span>etcd-1<span class="o">)</span> |
+| master03   | 192.168.100.202 | master03 <span class="o">(</span>etcd-2<span class="o">)</span> |
+| node01     | 192.168.100.203 |                   |
+| node02     | 192.168.100.204 |                   |
+|            |                 |                   |
+| virtual IP | 192.168.100.250 |                   |
+</code></pre></div></div>
+
+<h3 id="etchosts"><code class="highlighter-rouge">/etc/hosts</code></h3>
+
+<p>Add for all servers</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.100.200     master01
+192.168.100.201     master02
+192.168.100.202     master03
+192.168.100.203     worker01
+192.168.100.204     worker02
+
+192.168.100.250     jenkins.marslo.com
+192.168.100.250     prometheus.marslo.com
+192.168.100.250     grafana.marslo.com
+192.168.100.250     dashboard.marslo.com
+</code></pre></div></div>
+
+<h3 id="variables">variables</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># hostname</span>
+<span class="nv">master01Name</span><span class="o">=</span><span class="s1">'master01'</span>
+<span class="nv">master02Name</span><span class="o">=</span><span class="s1">'master02'</span>
+<span class="nv">master03Name</span><span class="o">=</span><span class="s1">'master03'</span>
+
+<span class="c"># ipaddress</span>
+<span class="nv">master01IP</span><span class="o">=</span><span class="s1">'192.168.100.200'</span>
+<span class="nv">master01IP</span><span class="o">=</span><span class="s1">'192.168.100.201'</span>
+<span class="nv">master01IP</span><span class="o">=</span><span class="s1">'192.168.100.202'</span>
+<span class="nv">virtualIP</span><span class="o">=</span><span class="s1">'192.168.100.250'</span>
+
+<span class="nv">leadIP</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">master01IP</span><span class="k">}</span><span class="s2">"</span>
+<span class="nv">leadName</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">master01Name</span><span class="k">}</span><span class="s2">"</span>
+
+<span class="nv">k8sVer</span><span class="o">=</span><span class="s1">'v1.15.3'</span>
+<span class="nv">cfsslDownloadUrl</span><span class="o">=</span><span class="s1">'https://pkg.cfssl.org/R1.2'</span>
+
+<span class="nv">etcdVer</span><span class="o">=</span><span class="s1">'v3.3.15'</span>
+<span class="nv">etcdDownloadUrl</span><span class="o">=</span><span class="s1">'https://github.com/etcd-io/etcd/releases/download'</span>
+<span class="nv">etcdSSLPath</span><span class="o">=</span><span class="s1">'/etc/etcd/ssl'</span>
+<span class="nv">etcdInitialCluster</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">master01Name</span><span class="k">}</span><span class="s2">=https://</span><span class="k">${</span><span class="nv">master01IP</span><span class="k">}</span><span class="s2">:2380,</span><span class="k">${</span><span class="nv">master02Name</span><span class="k">}</span><span class="s2">=https://</span><span class="k">${</span><span class="nv">master02IP</span><span class="k">}</span><span class="s2">:2380,</span><span class="k">${</span><span class="nv">master03Name</span><span class="k">}</span><span class="s2">=https://</span><span class="k">${</span><span class="nv">master03IP</span><span class="k">}</span><span class="s2">:2380"</span>
+
+<span class="nv">keepaliveVer</span><span class="o">=</span><span class="s1">'2.0.18'</span>
+<span class="nv">haproxyVer</span><span class="o">=</span><span class="s1">'2.0.6'</span>
+
+<span class="nv">interface</span><span class="o">=</span><span class="si">$(</span>netstat <span class="nt">-nr</span> | <span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'UG|UGSc'</span> | <span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'^0.0.0|default'</span> | <span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'[0-9.]{7,15}'</span> | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">' '</span> <span class="s1">'{print $NF}'</span><span class="si">)</span>
+<span class="nv">ipAddr</span><span class="o">=</span><span class="si">$(</span>ip a s <span class="s2">"</span><span class="k">${</span><span class="nv">interface</span><span class="k">}</span><span class="s2">"</span> | <span class="nb">sed</span> <span class="nt">-rn</span> <span class="s1">'s|.*inet ([0-9\.]{7,15})/[0-9]{2} brd.*$|\1|p'</span><span class="si">)</span>
+<span class="nv">peerName</span><span class="o">=</span><span class="si">$(</span><span class="nb">hostname</span><span class="si">)</span>
+</code></pre></div></div>
+
+<h1 id="tools-setup">Tools Setup</h1>
+<h2 id="cfssl--cfssljson">cfssl &amp; cfssljson</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>bash <span class="nt">-c</span> <span class="s2">"curl -o /usr/local/bin/cfssl </span><span class="k">${</span><span class="nv">cfsslDownloadUrl</span><span class="k">}</span><span class="s2">/cfssl_linux-amd64"</span>
+<span class="nv">$ </span><span class="nb">sudo </span>bash <span class="nt">-c</span> <span class="s2">"curl -o /usr/local/bin/cfssljson </span><span class="k">${</span><span class="nv">cfsslDownloadUrl</span><span class="k">}</span><span class="s2">/cfssljson_linux-amd64"</span>
+<span class="nv">$ </span><span class="nb">sudo chmod</span> +x /usr/local/bin/cfssl<span class="k">*</span>
+</code></pre></div></div>
+
+<h2 id="etcd">etcd</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-sSL</span> <span class="k">${</span><span class="nv">etcdDownloadUrl</span><span class="k">}</span>/<span class="k">${</span><span class="nv">etcdVer</span><span class="k">}</span>/etcd-<span class="k">${</span><span class="nv">etcdVer</span><span class="k">}</span><span class="nt">-linux-amd64</span>.tar.gz <span class="se">\</span>
+    | <span class="nb">sudo tar</span> <span class="nt">-xzv</span> <span class="nt">--strip-components</span><span class="o">=</span>1 <span class="nt">-C</span> /usr/local/bin/
+</code></pre></div></div>
+
+<h2 id="keepalived">keepalived</h2>
+
+<ul>
+  <li>Installation
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">mkdir</span> <span class="nt">-p</span> ~/temp
+  <span class="nv">$ </span><span class="nb">sudo mkdir</span> <span class="nt">-p</span> /etc/keepalived/
+
+  <span class="nv">$ </span>curl <span class="nt">-fsSL</span> <span class="k">${</span><span class="nv">keepaliveDownloadUrl</span><span class="k">}</span>/keepalived-<span class="k">${</span><span class="nv">keepaliveVer</span><span class="k">}</span>.tar.gz <span class="se">\</span>
+     | <span class="nb">tar </span>xzf - <span class="nt">-C</span> ~/temp
+
+  <span class="nv">$ </span><span class="nb">pushd</span> <span class="nb">.</span>
+  <span class="nv">$ </span><span class="nb">cd</span> ~/temp/keepalived-<span class="k">${</span><span class="nv">keepaliveVer</span><span class="k">}</span>
+  <span class="nv">$ </span>./configure <span class="o">&amp;&amp;</span> make
+  <span class="nv">$ </span><span class="nb">sudo </span>make <span class="nb">install</span>
+  <span class="nv">$ </span><span class="nb">sudo cp </span>keepalived/keepalived.service /etc/systemd/system/
+  <span class="nv">$ </span><span class="nb">popd</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Configuration
+    <ul>
+      <li>
+        <p>with haproxy</p>
+
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">sudo </span>bash <span class="nt">-c</span> <span class="s1">'cat &gt; /etc/keepalived/keepalived.conf'</span> <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="sh">
+  ! Configuration File for keepalived
+
+  global_defs {
+    router_id LVS_DEVEL
+  }
+
+  vrrp_script check_haproxy {
+    script "killall -0 haproxy"
+    interval 3
+    weight -2
+    fall 10
+    rise 2
+  }
+
+  vrrp_instance VI_1 {
+    state MASTER
+    interface </span><span class="k">${</span><span class="nv">interface</span><span class="k">}</span><span class="sh">
+    virtual_router_id 51
+    priority 50
+    advert_int 1
+    authentication {
+      auth_type PASS
+      auth_pass 35f18af7190d51c9f7f78f37300a0cbd
+    }
+    virtual_ipaddress {
+      </span><span class="k">${</span><span class="nv">virtualIP</span><span class="k">}</span><span class="sh">
+    }
+    track_script {
+      check_haproxy
+    }
+  }
+</span><span class="no">  EOF
+</span></code></pre></div>        </div>
+      </li>
+      <li>
+        <p>without haproxy</p>
+
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">sudo </span>bash <span class="nt">-c</span> <span class="s1">'cat &gt; /etc/keepalived/keepalived.conf'</span> <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="sh">
+  ! Configuration File for keepalived
+  global_defs {
+    router_id LVS_DEVEL
+  }
+  vrrp_script check_apiserver {
+    script "/etc/keepalived/check_apiserver.sh"
+    interval 3
+    weight -2
+    fall 10
+    rise 2
+  }
+  vrrp_instance VI_1 {
+    state MASTER
+    interface </span><span class="k">${</span><span class="nv">interface</span><span class="k">}</span><span class="sh">
+    virtual_router_id 51
+    priority 101
+    authentication {
+      auth_type PASS
+      auth_pass 4be37dc3b4c90194d1600c483e10ad1d
+    }
+    virtual_ipaddress {
+      </span><span class="k">${</span><span class="nv">virtualIP</span><span class="k">}</span><span class="sh">
+    }
+    track_script {
+      check_apiserver
+    }
+  }
+</span><span class="no">  EOF
+
+</span>  <span class="nv">$ </span><span class="nb">sudo </span>bash <span class="nt">-c</span> <span class="s1">'cat &gt; /etc/keepalived/check_apiserver.sh'</span> <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="sh">
+  #!/bin/sh
+  errorExit() {
+    echo "*** </span><span class="se">\$</span><span class="sh">*" 1&gt;&amp;2
+    exit 1
+  }
+  curl --silent                           </span><span class="se">\</span><span class="sh">
+       --max-time 2                       </span><span class="se">\</span><span class="sh">
+       --insecure https://localhost:6443/ </span><span class="se">\</span><span class="sh">
+       -o /dev/null                       </span><span class="se">\</span><span class="sh">
+      || errorExit 'Error GET https://localhost:6443/'
+
+  if ip addr | grep -q </span><span class="k">${</span><span class="nv">virtualIpAddr</span><span class="k">}</span><span class="sh">; then
+      curl --silent                                  </span><span class="se">\</span><span class="sh">
+           --max-time 2                              </span><span class="se">\</span><span class="sh">
+           --insecure https://</span><span class="k">${</span><span class="nv">virtualIpAddr</span><span class="k">}</span><span class="sh">:6443/ </span><span class="se">\</span><span class="sh">
+           -o /dev/null                              </span><span class="se">\</span><span class="sh">
+           || errorExit "Error GET https://</span><span class="k">${</span><span class="nv">virtualIpAddr</span><span class="k">}</span><span class="sh">:6443/"
+  fi
+</span><span class="no">  EOF
+</span></code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="haproxy-206">haproxy 2.0.6</h2>
+<ul>
+  <li>
+    <p>install haproxy from source code</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>curl <span class="nt">-fs</span> <span class="nt">-O</span> http://www.haproxy.org/download/<span class="si">$(</span><span class="nb">echo</span> <span class="k">${</span><span class="nv">haproxyVer</span><span class="p">%\.*</span><span class="k">}</span><span class="si">)</span>/src/haproxy-<span class="k">${</span><span class="nv">haproxyVer</span><span class="k">}</span>.tar.gz
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="helm">helm</h2>
+
+<h2 id="docker">docker</h2>
+
+  </div>
+</article>
+
+</section>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+  <div class="container footer-content">
+    Made in <i class ="fa fa-heart"></i> Marslo Jiao <a href="http://github.com/Marslo"><i class="fa fa-github"></i></a> <br> 
+    Forked from DevJournal <a href="https://github.com/hemangsk/DevJournal"><i class="fa fa-github"></i></a>. Powered By <a href="https://jekyllrb.com/">Jekyll.</a>
+  </div>
+</nav>
+  </body>
+</html>
