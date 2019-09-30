@@ -15,11 +15,10 @@ categories: ["kubernetes"]
     - [Environment List](#environment-list)
     - [`/etc/hosts`](#etchosts)
     - [variables](#variables)
-- [Tools Setup](#tools-setup)
-  - [cfssl & cfssljson](#cfssl--cfssljson)
+- [ipaddress](#ipaddress)
   - [etcd](#etcd)
   - [keepalived](#keepalived)
-  - [haproxy 2.0.6](#haproxy-206)
+  - [Haproxy 2.0.6](#haproxy-206)
   - [helm](#helm)
   - [docker](#docker)
 
@@ -232,41 +231,57 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
         EOF
         ```
 
-    - start keepalived serice
-        ```bash
-        $ sudo systemctl enable keepalived.service
-        $ sudo systemctl start keepalived.service
-
-        $ sudo systemctl is-enabled keepalived.service
-        enabled
-        $ sudo systemctl is-active keepalived.service
-        active
-        ```
-
-    - verify
-
-        <div class="alert alert-warning">
-        <b>INFO:</b> One of the master will be setup to virutal dual networking card and show 2 ip addresses. The one without Broadcast is the virutal IP.
-        </div>
-
-        ```bash
-        $ ip a s ${interface}
-        2: eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
-            link/ether 00:50:50:85:96:64 brd ff:ff:ff:ff:ff:ff
-            inet 192.168.100.200/24 brd 192.168.100.255 scope global noprefixroute eno1
-               valid_lft forever preferred_lft forever
-            inet 192.168.100.250/32 scope global eno1
-               valid_lft forever preferred_lft forever
-            inet6 fe80::250:fe85:86ff:9624/64 scope link
-               valid_lft forever preferred_lft forever
-        ```
-
-## haproxy 2.0.6
-- install haproxy from source code
+- start keepalived serice and verify
     ```bash
-    $ curl -fs -O http://www.haproxy.org/download/$(echo ${haproxyVer%\.*})/src/haproxy-${haproxyVer}.tar.gz
-    $
+    $ sudo systemctl enable keepalived.service
+    $ sudo systemctl start keepalived.service
+
+    $ sudo systemctl is-enabled keepalived.service
+    enabled
+    $ sudo systemctl is-active keepalived.service
+    active
+
+    $ ip a s ${interface}
+    2: eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+        link/ether 00:50:50:85:96:64 brd ff:ff:ff:ff:ff:ff
+        inet 192.168.100.200/24 brd 192.168.100.255 scope global noprefixroute eno1
+           valid_lft forever preferred_lft forever
+        inet 192.168.100.250/32 scope global eno1
+           valid_lft forever preferred_lft forever
+        inet6 fe80::250:fe85:86ff:9624/64 scope link
+           valid_lft forever preferred_lft forever
     ```
+
+    <div class="alert alert-warning">
+    <b>INFO:</b> One of the master will be setup to virutal dual networking card and show 2 ip addresses. The one without Broadcast is the virutal IP.
+    </div>
+
+## Haproxy 2.0.6
+- Install haproxy from source code
+    ```bash
+   $ curl -fsSL http://www.haproxy.org/download/$(echo ${haproxyVer%\.*})/src/haproxy-${haproxyVer}.tar.gz \
+           | tar xzf - -C ~
+
+    $ pushd .
+    $ cd ~/haproxy-${haproxyVer}
+    $ make TARGET=linux-glibc \
+           USE_LINUX_TPROXY=1 \
+           USE_ZLIB=1 \
+           USE_REGPARM=1 \
+           USE_PCRE=1 \
+           USE_PCRE_JIT=1 \
+           USE_OPENSSL=1 \
+           SSL_INC=/usr/include \
+           SSL_LIB=/usr/lib \
+           ADDLIB=-ldl \
+           USE_SYSTEMD=1
+    $ sudo make install
+    $ sudo cp haproxy /usr/sbin/
+    $ sudo cp examples/haproxy.init /etc/init.d/haproxy && sudo chmod +x $_
+    $ popd
+    $ rm -rf ~/haproxy-${haproxyVer}
+    ```
+- Configure Service
 
 ## helm
 

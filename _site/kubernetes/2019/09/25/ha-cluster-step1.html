@@ -153,12 +153,11 @@
       </li>
     </ul>
   </li>
-  <li><a href="#tools-setup">Tools Setup</a>
+  <li><a href="#ipaddress">ipaddress</a>
     <ul>
-      <li><a href="#cfssl--cfssljson">cfssl &amp; cfssljson</a></li>
       <li><a href="#etcd">etcd</a></li>
       <li><a href="#keepalived">keepalived</a></li>
-      <li><a href="#haproxy-206">haproxy 2.0.6</a></li>
+      <li><a href="#haproxy-206">Haproxy 2.0.6</a></li>
       <li><a href="#helm">helm</a></li>
       <li><a href="#docker">docker</a></li>
     </ul>
@@ -372,24 +371,18 @@
 </span><span class="no">  EOF
 </span></code></pre></div>        </div>
       </li>
-      <li>start keepalived serice
-        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>keepalived.service
+    </ul>
+  </li>
+  <li>start keepalived serice and verify
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>keepalived.service
   <span class="nv">$ </span><span class="nb">sudo </span>systemctl start keepalived.service
 
   <span class="nv">$ </span><span class="nb">sudo </span>systemctl is-enabled keepalived.service
   enabled
   <span class="nv">$ </span><span class="nb">sudo </span>systemctl is-active keepalived.service
   active
-</code></pre></div>        </div>
-      </li>
-      <li>
-        <p>verify</p>
 
-        <div class="alert alert-warning">
-  <b>INFO:</b> One of the master will be setup to virutal dual networking card and show 2 ip addresses. The one without Broadcast is the virutal IP.
-  </div>
-
-        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>ip a s <span class="k">${</span><span class="nv">interface</span><span class="k">}</span>
+  <span class="nv">$ </span>ip a s <span class="k">${</span><span class="nv">interface</span><span class="k">}</span>
   2: eno1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000
       <span class="nb">link</span>/ether 00:50:50:85:96:64 brd ff:ff:ff:ff:ff:ff
       inet 192.168.100.200/24 brd 192.168.100.255 scope global noprefixroute eno1
@@ -398,19 +391,41 @@
          valid_lft forever preferred_lft forever
       inet6 fe80::250:fe85:86ff:9624/64 scope <span class="nb">link
          </span>valid_lft forever preferred_lft forever
-</code></pre></div>        </div>
-      </li>
-    </ul>
+</code></pre></div>    </div>
+
+    <div class="alert alert-warning">
+  <b>INFO:</b> One of the master will be setup to virutal dual networking card and show 2 ip addresses. The one without Broadcast is the virutal IP.
+  </div>
   </li>
 </ul>
 
-<h2 id="haproxy-206">haproxy 2.0.6</h2>
+<h2 id="haproxy-206">Haproxy 2.0.6</h2>
 <ul>
-  <li>install haproxy from source code
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>curl <span class="nt">-fs</span> <span class="nt">-O</span> http://www.haproxy.org/download/<span class="si">$(</span><span class="nb">echo</span> <span class="k">${</span><span class="nv">haproxyVer</span><span class="p">%\.*</span><span class="k">}</span><span class="si">)</span>/src/haproxy-<span class="k">${</span><span class="nv">haproxyVer</span><span class="k">}</span>.tar.gz
-  <span class="err">$</span>
+  <li>Install haproxy from source code
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>curl <span class="nt">-fsSL</span> http://www.haproxy.org/download/<span class="si">$(</span><span class="nb">echo</span> <span class="k">${</span><span class="nv">haproxyVer</span><span class="p">%\.*</span><span class="k">}</span><span class="si">)</span>/src/haproxy-<span class="k">${</span><span class="nv">haproxyVer</span><span class="k">}</span>.tar.gz <span class="se">\</span>
+         | <span class="nb">tar </span>xzf - <span class="nt">-C</span> ~
+
+  <span class="nv">$ </span><span class="nb">pushd</span> <span class="nb">.</span>
+  <span class="nv">$ </span><span class="nb">cd</span> ~/haproxy-<span class="k">${</span><span class="nv">haproxyVer</span><span class="k">}</span>
+  <span class="nv">$ </span>make <span class="nv">TARGET</span><span class="o">=</span>linux-glibc <span class="se">\</span>
+         <span class="nv">USE_LINUX_TPROXY</span><span class="o">=</span>1 <span class="se">\</span>
+         <span class="nv">USE_ZLIB</span><span class="o">=</span>1 <span class="se">\</span>
+         <span class="nv">USE_REGPARM</span><span class="o">=</span>1 <span class="se">\</span>
+         <span class="nv">USE_PCRE</span><span class="o">=</span>1 <span class="se">\</span>
+         <span class="nv">USE_PCRE_JIT</span><span class="o">=</span>1 <span class="se">\</span>
+         <span class="nv">USE_OPENSSL</span><span class="o">=</span>1 <span class="se">\</span>
+         <span class="nv">SSL_INC</span><span class="o">=</span>/usr/include <span class="se">\</span>
+         <span class="nv">SSL_LIB</span><span class="o">=</span>/usr/lib <span class="se">\</span>
+         <span class="nv">ADDLIB</span><span class="o">=</span><span class="nt">-ldl</span> <span class="se">\</span>
+         <span class="nv">USE_SYSTEMD</span><span class="o">=</span>1
+  <span class="nv">$ </span><span class="nb">sudo </span>make <span class="nb">install</span>
+  <span class="nv">$ </span><span class="nb">sudo cp </span>haproxy /usr/sbin/
+  <span class="nv">$ </span><span class="nb">sudo cp </span>examples/haproxy.init /etc/init.d/haproxy <span class="o">&amp;&amp;</span> <span class="nb">sudo chmod</span> +x <span class="nv">$_</span>
+  <span class="nv">$ </span><span class="nb">popd</span>
+  <span class="nv">$ </span><span class="nb">rm</span> <span class="nt">-rf</span> ~/haproxy-<span class="k">${</span><span class="nv">haproxyVer</span><span class="k">}</span>
 </code></pre></div>    </div>
   </li>
+  <li>Configure Service</li>
 </ul>
 
 <h2 id="helm">helm</h2>

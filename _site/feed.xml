@@ -5,8 +5,8 @@
     <description>&lt;h2&gt;Hello, there!&lt;/h2&gt;&lt;h1&gt;Welcome to my world!&lt;/h1&gt;</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 30 Sep 2019 16:05:38 +0800</pubDate>
-    <lastBuildDate>Mon, 30 Sep 2019 16:05:38 +0800</lastBuildDate>
+    <pubDate>Mon, 30 Sep 2019 16:19:51 +0800</pubDate>
+    <lastBuildDate>Mon, 30 Sep 2019 16:19:51 +0800</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -28,12 +28,11 @@
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#tools-setup&quot;&gt;Tools Setup&lt;/a&gt;
+  &lt;li&gt;&lt;a href=&quot;#ipaddress&quot;&gt;ipaddress&lt;/a&gt;
     &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#cfssl--cfssljson&quot;&gt;cfssl &amp;amp; cfssljson&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#etcd&quot;&gt;etcd&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#keepalived&quot;&gt;keepalived&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#haproxy-206&quot;&gt;haproxy 2.0.6&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#haproxy-206&quot;&gt;Haproxy 2.0.6&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#helm&quot;&gt;helm&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#docker&quot;&gt;docker&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
@@ -247,24 +246,18 @@
 &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;  EOF
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
       &lt;/li&gt;
-      &lt;li&gt;start keepalived serice
-        &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;keepalived.service
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;start keepalived serice and verify
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;keepalived.service
   &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl start keepalived.service
 
   &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl is-enabled keepalived.service
   enabled
   &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl is-active keepalived.service
   active
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;verify&lt;/p&gt;
 
-        &lt;div class=&quot;alert alert-warning&quot;&gt;
-  &lt;b&gt;INFO:&lt;/b&gt; One of the master will be setup to virutal dual networking card and show 2 ip addresses. The one without Broadcast is the virutal IP.
-  &lt;/div&gt;
-
-        &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ip a s &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;interface&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ip a s &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;interface&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
   2: eno1: &amp;lt;BROADCAST,MULTICAST,UP,LOWER_UP&amp;gt; mtu 1500 qdisc mq state UP group default qlen 1000
       &lt;span class=&quot;nb&quot;&gt;link&lt;/span&gt;/ether 00:50:50:85:96:64 brd ff:ff:ff:ff:ff:ff
       inet 192.168.100.200/24 brd 192.168.100.255 scope global noprefixroute eno1
@@ -273,19 +266,41 @@
          valid_lft forever preferred_lft forever
       inet6 fe80::250:fe85:86ff:9624/64 scope &lt;span class=&quot;nb&quot;&gt;link
          &lt;/span&gt;valid_lft forever preferred_lft forever
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;div class=&quot;alert alert-warning&quot;&gt;
+  &lt;b&gt;INFO:&lt;/b&gt; One of the master will be setup to virutal dual networking card and show 2 ip addresses. The one without Broadcast is the virutal IP.
+  &lt;/div&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;haproxy-206&quot;&gt;haproxy 2.0.6&lt;/h2&gt;
+&lt;h2 id=&quot;haproxy-206&quot;&gt;Haproxy 2.0.6&lt;/h2&gt;
 &lt;ul&gt;
-  &lt;li&gt;install haproxy from source code
-    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-fs&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; http://www.haproxy.org/download/&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;haproxyVer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;%\.*&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;/src/haproxy-&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;haproxyVer&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;.tar.gz
-  &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;
+  &lt;li&gt;Install haproxy from source code
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-fsSL&lt;/span&gt; http://www.haproxy.org/download/&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;haproxyVer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;%\.*&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;/src/haproxy-&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;haproxyVer&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;.tar.gz &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         | &lt;span class=&quot;nb&quot;&gt;tar &lt;/span&gt;xzf - &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; ~
+
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pushd&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/haproxy-&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;haproxyVer&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;make &lt;span class=&quot;nv&quot;&gt;TARGET&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;linux-glibc &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;USE_LINUX_TPROXY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;USE_ZLIB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;USE_REGPARM&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;USE_PCRE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;USE_PCRE_JIT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;USE_OPENSSL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;SSL_INC&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/include &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;SSL_LIB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/lib &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;ADDLIB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-ldl&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;USE_SYSTEMD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;make &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo cp &lt;/span&gt;haproxy /usr/sbin/
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo cp &lt;/span&gt;examples/haproxy.init /etc/init.d/haproxy &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sudo chmod&lt;/span&gt; +x &lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;popd&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; ~/haproxy-&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;haproxyVer&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
+  &lt;li&gt;Configure Service&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;helm&quot;&gt;helm&lt;/h2&gt;
