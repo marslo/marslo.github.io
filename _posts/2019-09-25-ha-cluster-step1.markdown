@@ -288,19 +288,6 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
     # Global settings
     #---------------------------------------------------------------------
     global
-        # to have these messages end up in /var/log/haproxy.log you will
-        # need to:
-        #
-        # 1) configure syslog to accept network log events.  This is done
-        #    by adding the '-r' option to the SYSLOGD_OPTIONS in
-        #    /etc/sysconfig/syslog
-        #
-        # 2) configure local2 events to go to the /var/log/haproxy.log
-        #   file. A line like the following can be added to
-        #   /etc/sysconfig/syslog
-        #
-        #    local2.*                       /var/log/haproxy.log
-        #
         log         127.0.0.1 local2
 
         chroot      /var/lib/haproxy
@@ -387,24 +374,6 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
     KillMode=mixed
     Restart=always
     Type=forking
-
-    # The following lines leverage SystemD's sandboxing options to provide
-    # defense in depth protection at the expense of restricting some flexibility
-    # in your setup (e.g. placement of your configuration files) or possibly
-    # reduced performance. See systemd.service(5) and systemd.exec(5) for further
-    # information.
-
-    # NoNewPrivileges=true
-    # ProtectHome=true
-    # If you want to use 'ProtectSystem=strict' you should whitelist the PIDFILE,
-    # any state files and any other files written using 'ReadWritePaths' or
-    # 'RuntimeDirectory'.
-    # ProtectSystem=true
-    # ProtectKernelTunables=true
-    # ProtectKernelModules=true
-    # ProtectControlGroups=true
-    # If your SystemD version supports them, you can add: @reboot, @swap, @sync
-    # SystemCallFilter=~@cpu-emulation @keyring @module @obsolete @raw-io
 
     [Install]
     WantedBy=multi-user.target
