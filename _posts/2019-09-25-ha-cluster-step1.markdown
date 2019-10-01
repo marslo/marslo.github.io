@@ -29,7 +29,6 @@ excerpt_separator: <!--more-->
 |------------|-----------------|-------------------|-------------------|------------|----------|
 {:.inner-borders}
 
-
 #### `/etc/hosts`
 
 Add for all servers
@@ -211,12 +210,12 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
              -o /dev/null                       \
             || errorExit 'Error GET https://localhost:6443/'
 
-        if ip addr | grep -q ${virtualIpAddr}; then
+        if ip addr | grep -q ${virtualIP}; then
             curl --silent                                  \
                  --max-time 2                              \
-                 --insecure https://${virtualIpAddr}:6443/ \
+                 --insecure https://${virtualIP}:6443/ \
                  -o /dev/null                              \
-                 || errorExit "Error GET https://${virtualIpAddr}:6443/"
+                 || errorExit "Error GET https://${virtualIP}:6443/"
         fi
         EOF
         ```
@@ -420,26 +419,27 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
 - Presetup
     ```bash
     # clean environment
-    $ sudo yum remove -y docker \
-                       docker-client \
-                       docker-client-latest \
-                       docker-common \
-                       docker-latest \
-                       docker-latest-logrotate \
-                       docker-logrotate \
-                       docker-selinux \
-                       docker-engine-selinux \
-                       docker-engine
+    $ sudo yum remove -y docker                  \
+                         docker-client           \
+                         docker-client-latest    \
+                         docker-common           \
+                         docker-latest           \
+                         docker-latest-logrotate \
+                         docker-logrotate        \
+                         docker-selinux          \
+                         docker-engine-selinux   \
+                         docker-engine
+
     # nice to have
     $ sudo yum -y groupinstall 'Development Tools'
 
-    $ sudo yum install -y yum-utils \
+    $ sudo yum install -y yum-utils                   \
                         device-mapper-persistent-data \
-                        lvm2 \
+                        lvm2                          \
                         bash-completion*
 
     $ sudo yum-config-manager \
-         --add-repo \
+         --add-repo           \
          https://download.docker.com/linux/centos/docker-ce.repo
     $ sudo yum-config-manager --disable docker-ce-edge
     $ sudo yum-config-manager --disable docker-ce-test
@@ -454,8 +454,8 @@ $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
                     | awk -F' ' '{print $2}' \
                     | awk -F':' '{print $NF}' \
                  )
-    $ sudo yum install -y \
-             docker-ce-${dockerVer}.x86_64 \
+    $ sudo yum install -y                      \
+             docker-ce-${dockerVer}.x86_64     \
              docker-ce-cli-${dockerVer}.x86_64 \
              containerd.io
     ```
