@@ -7,10 +7,11 @@ tags: ["kuberentes", "centos"]
 excerpt_separator: <!--more-->
 ---
 
-## Extended etcd Topology
-### [Kubernetes HA cluster with external etcd](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology)
+## Objective
 
 <img src="{{site.url}}/assets/images/external-etcd-topology.png" style="width: 666px;" />
+
+### [Kubernetes HA cluster with external etcd](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology)
 
 <!--more-->
 ### Server Matrix
@@ -81,7 +82,7 @@ haproxyVer='2.0.6'
 helmVer='v2.14.3'
 
 interface=$(netstat -nr | grep -E 'UG|UGSc' | grep -E '^0.0.0|default' | grep -E '[0-9.]{7,15}' | awk -F' ' '{print $NF}')
-ipAddr=$(ip a s "${interface}" | sed -rn 's|.*inet ([0-9\.]{7,15})/[0-9]{2} brd.*$|\1|p')
+ipAddr=$(ip a s "${interface}" | sed -rn 's|\W*inet[^6]\W*([0-9\.]{7,15}).*$|\1|p')
 peerName=$(hostname)
 ```
 
