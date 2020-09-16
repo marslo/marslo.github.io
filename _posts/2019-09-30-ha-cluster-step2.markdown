@@ -304,3 +304,20 @@ ca-config.json  ca.csr  ca-csr.json  ca-key.pem  ca.pem  client.csr  client.json
   $ sudo systemctl enable --now etcd
   $ sudo systemctl start etcd.service
   ```
+
+- verify
+  ```bash
+  master0{1..3} $ sudo systemctl status etcd
+  master01 $ sudo /usr/local/bin/etcdctl --ca-file /etc/etcd/ssl/ca.pem --cert-file /etc/etcd/ssl/client.pem --key-file /etc/etcd/ssl/client-key.pem --endpoints https://192.168.100.200:2379,https://192.168.100.201:2379,https://192.168.100.202:2379 cluster-health
+  member ae76391b129**** is healthy: got healthy result from https://192.168.100.200:2379
+  member cda996b3ea5a*** is healthy: got healthy result from https://192.168.100.201:2379
+  member e295a3c1654e*** is healthy: got healthy result from https://192.168.100.202:2379
+  cluster is healthy
+  ```
+
+<details>
+<summary>tips</summary>
+<pre><code>$ alias etcdctl="sudo /usr/local/bin/etcdctl --ca-file /etc/etcd/ssl/ca.pem --cert-file /etc/etcd/ssl/client.pem --key-file /etc/etcd/ssl/client-key.pem --endpoints https://192.168.100.200:2379,https://192.168.100.201:2379,https://192.168.100.202:2379"
+$ etcdctl cluster-health
+</code></pre>
+</details>
