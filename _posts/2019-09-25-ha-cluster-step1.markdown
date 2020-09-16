@@ -11,7 +11,7 @@ excerpt_separator: <!--more-->
 
 <img src="{{site.url}}/assets/images/external-etcd-topology.png" style="width: 666px;" />
 
-### [Kubernetes HA cluster with external etcd](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology)
+> reference: [Kubernetes HA cluster with external etcd](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/#external-etcd-topology)
 
 <!--more-->
 ### Server Matrix
@@ -109,6 +109,23 @@ $ sudo chmod +x /usr/local/bin/cfssl*
 $ curl -sSL ${etcdDownloadUrl}/${etcdVer}/etcd-${etcdVer}-linux-amd64.tar.gz \
     | sudo tar -xzv --strip-components=1 -C /usr/local/bin/
 ```
+
+<details>
+<summary> click for more details </summary>
+
+<pre><code>$ for i in {1..3}; do
+  ssh devops@master0${i} curl -sSL ${etcd_download_url}/${etcd_version}/etcd-${etcd_version}-linux-amd64.tar.gz | sudo tar -xzv --strip-components=1 -C /usr/local/bin/
+  ssh devops@master0${i} 'etcd --version'
+done
+ 
+Result:
+etcd Version: 3.3.15
+Git SHA: 94745a4ee
+Go Version: go1.12.9
+Go OS/Arch: linux/amd64
+</code></pre>
+</details>
+<br>
 
 ### keepalived
 

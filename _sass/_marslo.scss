@@ -96,6 +96,21 @@ table.inner-borders {
   font-size: 36px;//42px;
 }
 
+/* inspired from https://github.com/necolas/normalize.css/issues/604#issuecomment-230840498
+summary {
+  display: block;
+}
+
+details > summary::-moz-list-bullet {
+  list-style-type: disclosure-closed;
+  -moz-user-select: none;
+}
+
+details[open] > summary::-moz-list-bullet {
+  list-style-type: disclosure-open;
+}
+*/
+
 /* h2.post-title {
   padding-top: 10px;
   text-align: left;
